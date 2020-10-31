@@ -1,0 +1,71 @@
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    expose:
+      - "6379"
+    networks:
+      - lueir
+
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+      - db
+    links:
+      - redis
+      - db
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - /home/mark/Nextcloud/Mark/PARA Home Base:/opt/files/para-family
+      - /home/mark/Nextcloud/Mark/PARA Family:/opt/files/para-home-base
+    networks:
+      - lueir
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+    ports:
+      - 3309:3306
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+    networks:
+      - lueir
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    links:
+      - app
+    ports:
+      - 8008:80
+      - 8009:443
+    volumes:
+      - ./public:/app/public
+      - ./storage:/app/storage
+      - ./docker/nginx/app.conf:/etc/nginx/conf.d/app.conf
+    networks:
+      - lueir
+
+  node:
+    image: node:current-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: npm install
+
+networks:
+  lueir:
+    driver: bridge
+
