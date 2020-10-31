@@ -49,8 +49,8 @@ services:
     links:
       - app
     ports:
-      - 8008:80
-      - 8009:443
+      - 8018:80
+      - 8019:443
     volumes:
       - ./public:/app/public
       - ./storage:/app/storage
