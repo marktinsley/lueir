@@ -2,39 +2,72 @@
 
 namespace App\Lib\Files;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 abstract class BaseFile
 {
-    protected string $basePath;
-
     /**
-     * @param string $basePath
-     */
-    public function __construct(string $basePath)
-    {
-        $this->basePath = $basePath;
-    }
-
-    /**
-     * Gives you the base folders that a user can access.
+     * The path to the file, relative to the "Disk".
      *
-     * @return Collection
+     * @var string
      */
-    public static function baseFolders(): Collection
+    protected string $relativePath;
+
+    /**
+     * The disk the file is in.
+     *
+     * @var string
+     */
+    protected string $disk;
+
+    /**
+     * This is what we're providing our own interface for.
+     *
+     * @var Filesystem
+     */
+    protected Filesystem $filesystem;
+
+    /**
+     * @param string $relativePath The path to the file or folder.
+     * @param string $disk The Laravel disk this file is in.
+     */
+    public function __construct(string $relativePath, string $disk = 'local')
     {
-        return collect(Storage::disk()->directories())->mapInto(Folder::class);
+        $this->relativePath = $relativePath;
+        $this->disk = $disk;
+        $this->filesystem = Storage::disk($disk);
     }
 
     /**
-     * Gives you the path to this file (or folder).
+     * Get the name of the file/folder.
      *
      * @return string
      */
-    public function path(): string
+    public function name()
     {
-        return $this->basePath;
+        return basename($this->relativePath);
+    }
+
+    /**
+     * Gives you the relative path to this file (or folder).
+     *
+     * @return string
+     */
+    public function relativePath(): string
+    {
+        return $this->relativePath;
+    }
+
+    /**
+     * Gives you the absolute path to this file (or folder).
+     *
+     * @return string
+     */
+    public function absolutePath(): string
+    {
+        return $this->filesystem->path($this->relativePath);
     }
 
     /**
@@ -54,6 +87,6 @@ abstract class BaseFile
         Storage::put('base-folder1/file1.txt', 'test');
         Storage::put('base-folder1/file2.md', 'test');
 
-        return static::baseFolders();
+        return Folder::baseFolders();
     }
 }
