@@ -41,11 +41,30 @@ abstract class BaseFile
     }
 
     /**
+     * Gives you the file or folder at the given path.
+     *
+     * @param string $relativePath
+     * @param string $disk
+     * @return static|null
+     */
+    public static function atPath(string $relativePath, string $disk = 'local'): ?self
+    {
+        $filesystem = Storage::disk($disk);
+        if (!$filesystem->exists($relativePath)) {
+            return null;
+        }
+
+        return is_dir($filesystem->path($relativePath))
+            ? new Folder($relativePath, $disk)
+            : new File($relativePath, $disk);
+    }
+
+    /**
      * Get the name of the file/folder.
      *
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return basename($this->relativePath);
     }
