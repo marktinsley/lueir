@@ -2,7 +2,7 @@
 
 namespace App\Lib\Files;
 
-class File
+class File extends BaseFile
 {
 
 }

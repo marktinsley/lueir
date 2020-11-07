@@ -24,6 +24,36 @@ abstract class BaseFile
      */
     public static function baseFolders(): Collection
     {
-        return collect(Storage::disk()->directories())->map(fn($path) => new Folder($path));
+        return collect(Storage::disk()->directories())->mapInto(Folder::class);
+    }
+
+    /**
+     * Gives you the path to this file (or folder).
+     *
+     * @return string
+     */
+    public function path(): string
+    {
+        return $this->basePath;
+    }
+
+    /**
+     * Scaffold up some fake files and folders to test with.
+     *
+     * @return Collection
+     */
+    public static function fakeScaffold(): Collection
+    {
+        Storage::fake();
+
+        Storage::makeDirectory('base-folder1');
+        Storage::makeDirectory('base-folder1/sub-folder1');
+        Storage::makeDirectory('base-folder1/sub-folder2');
+        Storage::makeDirectory('base-folder2');
+
+        Storage::put('base-folder1/file1.txt', 'test');
+        Storage::put('base-folder1/file2.md', 'test');
+
+        return static::baseFolders();
     }
 }
