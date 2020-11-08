@@ -8,18 +8,6 @@ use Illuminate\Support\Facades\Storage;
 class Folder extends BaseFile
 {
     /**
-     * Gives you the base folders that a user can access.
-     *
-     * @param string $disk
-     * @return Collection
-     */
-    public static function baseFolders(string $disk = 'local'): Collection
-    {
-        return collect(Storage::disk($disk)->directories())
-            ->map(fn($folderPath) => new Folder($folderPath, $disk));
-    }
-
-    /**
      * Get the folders within this folder.
      *
      * @return Collection

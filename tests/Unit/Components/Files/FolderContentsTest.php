@@ -22,4 +22,16 @@ class FolderContentsTest extends TestCase
             ->assertSee('file1.txt')
             ->assertSee('file2.md');
     }
+
+    /** @test */
+    function lists_folders_in_root_dir_by_default()
+    {
+        // Arrange
+        Folder::fakeScaffold();
+
+        // Execute & Check
+        Livewire::test(FolderContents::class)
+            ->assertSee('base-folder1')
+            ->assertSee('base-folder2');
+    }
 }

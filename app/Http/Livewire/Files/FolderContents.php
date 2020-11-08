@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class FolderContents extends Component
 {
-    public string $path;
+    public ?string $path = null;
     protected Folder $folder;
 
     public function mount()

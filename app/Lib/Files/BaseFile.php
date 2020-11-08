@@ -3,7 +3,6 @@
 namespace App\Lib\Files;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 abstract class BaseFile
@@ -33,7 +32,7 @@ abstract class BaseFile
      * @param string $relativePath The path to the file or folder.
      * @param string $disk The Laravel disk this file is in.
      */
-    public function __construct(string $relativePath, string $disk = 'local')
+    public function __construct(string $relativePath = '', string $disk = 'local')
     {
         $this->relativePath = $relativePath;
         $this->disk = $disk;
@@ -43,12 +42,16 @@ abstract class BaseFile
     /**
      * Gives you the file or folder at the given path.
      *
-     * @param string $relativePath
+     * @param string|null $relativePath
      * @param string $disk
      * @return static|null
      */
-    public static function atPath(string $relativePath, string $disk = 'local'): ?self
+    public static function atPath(?string $relativePath, string $disk = 'local'): ?self
     {
+        if (is_null($relativePath)) {
+            return new Folder('', $disk);
+        }
+
         $filesystem = Storage::disk($disk);
         if (!$filesystem->exists($relativePath)) {
             return null;
@@ -92,9 +95,9 @@ abstract class BaseFile
     /**
      * Scaffold up some fake files and folders to test with.
      *
-     * @return Collection
+     * @return Folder
      */
-    public static function fakeScaffold(): Collection
+    public static function fakeScaffold(): Folder
     {
         Storage::fake();
 
@@ -106,6 +109,6 @@ abstract class BaseFile
         Storage::put('base-folder1/file1.txt', 'test');
         Storage::put('base-folder1/file2.md', 'test');
 
-        return Folder::baseFolders();
+        return new Folder();
     }
 }

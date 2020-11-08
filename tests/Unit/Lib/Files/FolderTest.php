@@ -13,10 +13,10 @@ class FolderTest extends TestCase
     function gives_the_available_base_folders()
     {
         // Arrange
-        BaseFile::fakeScaffold();
+        $rootFolder = BaseFile::fakeScaffold();
 
         // Execute
-        $folders = Folder::baseFolders();
+        $folders = $rootFolder->folders();
 
         // Check
         $paths = $folders->map->relativePath();
@@ -30,7 +30,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $baseFolder */
-        $baseFolder = BaseFile::fakeScaffold()->first();
+        $baseFolder = BaseFile::fakeScaffold()->folders()->first();
 
         // Execute
         $subFolders = $baseFolder->folders();
@@ -48,7 +48,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $baseFolder */
-        $baseFolder = BaseFile::fakeScaffold()->first();
+        $baseFolder = BaseFile::fakeScaffold()->folders()->first();
 
         // Execute
         $subFiles = $baseFolder->files();
@@ -66,7 +66,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->first()->folders()->first();
+        $folder = BaseFile::fakeScaffold()->folders()->first()->folders()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1' . DIRECTORY_SEPARATOR . 'sub-folder1', $folder->relativePath());
@@ -77,7 +77,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->first()->folders()->first();
+        $folder = BaseFile::fakeScaffold()->folders()->first()->folders()->first();
 
         // Execute & Check
         $this->assertSame(
@@ -95,7 +95,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $baseFolder */
-        $baseFolder = BaseFile::fakeScaffold()->first();
+        $baseFolder = BaseFile::fakeScaffold()->folders()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1', $baseFolder->name());

@@ -14,7 +14,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->first()->files()->first();
+        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame('file1.txt', $file->name());
@@ -25,7 +25,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->first()->files()->first();
+        $folder = BaseFile::fakeScaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1' . DIRECTORY_SEPARATOR . 'file1.txt', $folder->relativePath());
@@ -36,7 +36,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->first()->files()->first();
+        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame(
