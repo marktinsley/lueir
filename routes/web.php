@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', fn() => redirect()->to('/'))->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+    Route::get('/', [\App\Http\Controllers\FilesController::class, 'index'])->name('files.index');
+    Route::resource('files', \App\Http\Controllers\FilesController::class)->except('index');
+});

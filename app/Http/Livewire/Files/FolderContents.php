@@ -14,6 +14,8 @@ class FolderContents extends Component
 
     public function mount()
     {
+        $this->path = empty($this->path) ? null : $this->path;
+
         $folder = BaseFile::atPath($this->path);
 
         if (!($folder instanceof Folder)) {
