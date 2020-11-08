@@ -48,4 +48,30 @@ class FileTest extends TestCase
             $file->absolutePath()
         );
     }
+
+    /** @test */
+    function tells_you_if_the_file_is_a_text_file()
+    {
+        // Arrange
+        /** @var File $file */
+        $files = BaseFile::fakeScaffold()->folders()->first()->files();
+
+        // Execute & Check
+        $this->assertTrue($files->first()->isText());
+    }
+
+    /** @test */
+    function allows_you_to_search_by_name_when_in_a_collection()
+    {
+        // Arrange
+        /** @var Folder $folder */
+        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $pathToSearchFor = 'base-folder1' . DIRECTORY_SEPARATOR . 'file1.txt';
+
+        // Execute
+        $foundFolder = $folder->files()->firstWhere('relativePath', $pathToSearchFor);
+
+        // Check
+        $this->assertSame($pathToSearchFor, $foundFolder->relativePath());
+    }
 }

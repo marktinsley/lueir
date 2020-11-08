@@ -5,7 +5,7 @@ namespace App\Lib\Files;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 
-abstract class BaseFile
+abstract class BaseFile implements \ArrayAccess
 {
     /**
      * The path to the file, relative to the "Disk".
@@ -106,9 +106,35 @@ abstract class BaseFile
         Storage::makeDirectory('base-folder1/sub-folder2');
         Storage::makeDirectory('base-folder2');
 
-        Storage::put('base-folder1/file1.txt', 'test');
-        Storage::put('base-folder1/file2.md', 'test');
+        Storage::put('base-folder1/file1.txt', 'file1 contents');
+        Storage::put('base-folder1/file2.md', 'file2 contents');
 
         return new Folder();
+    }
+
+    public function offsetExists($offset)
+    {
+        return $offset === 'relativePath';
+    }
+
+    public function offsetGet($offset)
+    {
+        if ($offset === 'relativePath') {
+            return $this->relativePath;
+        }
+
+        return null;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === 'relativePath') {
+            $this->relativePath = $value;
+        }
+    }
+
+    public function offsetUnset($offset)
+    {
+        $this->relativePath = '';
     }
 }

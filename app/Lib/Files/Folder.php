@@ -2,9 +2,13 @@
 
 namespace App\Lib\Files;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
-class Folder extends BaseFile
+/**
+ * @property string relativePath
+ */
+class Folder extends BaseFile implements Arrayable
 {
     protected array $ignoreFolders = ['.git', '.idea'];
 
@@ -29,5 +33,18 @@ class Folder extends BaseFile
     {
         return collect($this->filesystem->files($this->relativePath()))
             ->map(fn($filePath) => new File($filePath, $this->disk));
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            ...$this->folders()->map->relativePath(),
+            ...$this->files()->map->relativePath(),
+        ];
     }
 }
