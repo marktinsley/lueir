@@ -8,16 +8,17 @@ use Livewire\Component;
 class FileView extends Component
 {
     public ?string $path = null;
-    protected ?BaseFile $file;
+    protected $queryString = ['path'];
+    protected $listeners = ['changePath'];
 
-    public function mount()
+    public function changePath(string $newPath)
     {
-        $this->file = BaseFile::atPath(empty($this->path) ? null : $this->path);
+        $this->path = $newPath;
     }
 
     public function file()
     {
-        return $this->file;
+        return BaseFile::atPath(empty($this->path) ? null : $this->path);
     }
 
     public function render()

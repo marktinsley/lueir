@@ -10,29 +10,31 @@ use Livewire\Component;
 class FolderContents extends Component
 {
     public ?string $path = null;
-    protected Folder $folder;
 
     public function mount()
     {
         $this->path = empty($this->path) ? null : $this->path;
+    }
 
+    public function folder()
+    {
         $folder = BaseFile::atPath($this->path);
 
         if (!($folder instanceof Folder)) {
-            throw new \InvalidArgumentException('The given path must be a folder. ' . $this->path);
+            throw new \InvalidArgumentException('The path must be a folder. ' . $this->path);
         }
 
-        $this->folder = $folder;
+        return $folder;
     }
 
     public function folders(): Collection
     {
-        return $this->folder->folders();
+        return $this->folder()->folders();
     }
 
     public function files(): Collection
     {
-        return $this->folder->files();
+        return $this->folder()->files();
     }
 
     public function render()

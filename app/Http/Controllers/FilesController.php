@@ -13,7 +13,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        return view('files.index', request()->only('path'));
+        return view('files.index');
     }
 
     /**

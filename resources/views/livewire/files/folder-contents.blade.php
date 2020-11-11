@@ -1,6 +1,6 @@
 <div>
     @foreach($this->folders() as $folder)
-        <a href="{{ route('files.index', ['path' => $folder->relativePath()]) }}"
+        <a wire:click="$emit('changePath', '{{ $folder->relativePath() }}')"
            class="py-5 px-6 bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer">
             <div class="flex-initial pr-4 w-10">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
