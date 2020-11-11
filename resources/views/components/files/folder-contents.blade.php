@@ -1,5 +1,5 @@
 <div>
-    @if ($this->folders->isEmpty() && $this->files->isEmpty())
+    @if ($folders->isEmpty() && $files->isEmpty())
         <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
             <div class="flex">
                 <div class="py-1">
@@ -15,7 +15,7 @@
             </div>
         </div>
     @else
-        @foreach($this->folders as $folder)
+        @foreach($folders as $folder)
             <a wire:click="$emit('changePath', '{{ $folder->relativePath() }}')"
                class="py-5 px-6 bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer">
                 <div class="flex-initial pr-4 w-10">
@@ -28,8 +28,8 @@
                 </div>
             </a>
         @endforeach
-        @foreach($this->files as $file)
-            <a href="{{ route('files.index', ['path' => $file->relativePath()]) }}"
+        @foreach($files as $file)
+            <a wire:click="$emit('changePath', '{{ $file->relativePath() }}')"
                class="py-5 px-6 bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer">
                 <div class="flex-initial pr-4 w-10">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

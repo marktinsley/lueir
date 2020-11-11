@@ -1,6 +1,6 @@
 <div>
     @if(is_null($this->file()) || $this->file() instanceof \App\Lib\Files\Folder)
-        <livewire:files.folder-contents path="{{ $path }}" :key="$path"/>
+        <x-files.folder-contents path="{{ $path }}" :key="$path"/>
     @elseif ($this->file()->isText())
         <textarea name="contents"
                   class="w-full rounded p-4"
