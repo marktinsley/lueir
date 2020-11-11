@@ -21,8 +21,8 @@ services:
     volumes:
       - .:/app
       - ./docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
-      - /home/mark/Nextcloud/Mark/PARA Home Base:/opt/files/para-family
-      - /home/mark/Nextcloud/Mark/PARA Family:/opt/files/para-home-base
+      - ${HOST_FOLDER_1}:/opt/files/para-home-base
+      - ${HOST_FOLDER_2}:/opt/files/para-family
     networks:
       - lueir
 
