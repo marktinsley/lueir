@@ -27,12 +27,12 @@ class FolderContents extends Component
         return $folder;
     }
 
-    public function folders(): Collection
+    public function getFoldersProperty(): Collection
     {
         return $this->folder()->folders();
     }
 
-    public function files(): Collection
+    public function getFilesProperty(): Collection
     {
         return $this->folder()->files();
     }
