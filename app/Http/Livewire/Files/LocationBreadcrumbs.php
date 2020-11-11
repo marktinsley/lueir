@@ -11,9 +11,21 @@ class LocationBreadcrumbs extends Component
     protected $queryString = ['path'];
     protected $listeners = ['changePath'];
 
+    public bool $showFullPath = false;
+
     public function changePath(string $newPath)
     {
         $this->path = $newPath;
+    }
+
+    public function showFullPath()
+    {
+        $this->showFullPath = true;
+    }
+
+    public function getCurrentFileProperty()
+    {
+        return BaseFile::atPath($this->path);
     }
 
     public function paths()
