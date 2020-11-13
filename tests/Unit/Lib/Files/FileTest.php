@@ -53,11 +53,25 @@ class FileTest extends TestCase
     function tells_you_if_the_file_is_a_text_file()
     {
         // Arrange
-        /** @var File $file */
-        $files = BaseFile::fakeScaffold()->folders()->first()->files();
+        /** @var File $textFile */
+        $textFile = BaseFile::fakeScaffold()->folders()->first()->files()->first();
 
         // Execute & Check
-        $this->assertTrue($files->first()->isText());
+        $this->assertTrue($textFile->isText());
+    }
+
+    /** @test */
+    function tells_you_if_the_file_is_a_markdown_file()
+    {
+        // Arrange
+        /** @var File $mdFile */
+        $mdFile = BaseFile::fakeScaffold()->files()->first();
+        /** @var File $textFile */
+        $textFile = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+
+        // Execute & Check
+        $this->assertTrue($mdFile->isMarkdown());
+        $this->assertFalse($textFile->isMarkdown());
     }
 
     /** @test */
@@ -73,5 +87,26 @@ class FileTest extends TestCase
 
         // Check
         $this->assertSame($pathToSearchFor, $foundFolder->relativePath());
+    }
+
+    /** @test */
+    function gives_you_the_folder_its_contained_in()
+    {
+
+        // Arrange
+        /** @var File $file */
+        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        /** @var File $baseFile */
+        $baseFile = BaseFile::fakeScaffold()->files()->first();
+
+        // Execute
+        $folder = $file->folder();
+        $baseFolder = $baseFile->folder();
+
+        // Check
+        $this->assertInstanceOf(Folder::class, $folder);
+        $this->assertEquals('base-folder1', $folder->relativePath());
+        $this->assertInstanceOf(Folder::class, $baseFolder);
+        $this->assertEquals('', $baseFolder->relativePath());
     }
 }

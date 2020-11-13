@@ -17,6 +17,16 @@ class File extends BaseFile
     }
 
     /**
+     * Is this a markdown file?
+     *
+     * @return bool
+     */
+    public function isMarkdown(): bool
+    {
+        return $this->isText() && (new \SplFileInfo($this->absolutePath()))->getExtension() === 'md';
+    }
+
+    /**
      * Is this an image that can be rendered in an <img> tag?
      *
      * @return bool
@@ -36,8 +46,19 @@ class File extends BaseFile
      * @return string
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function getContents(): string
+    public function contents(): string
     {
         return $this->filesystem->get($this->relativePath);
+    }
+
+    /**
+     * Gives you the folder this file lives inside of.
+     *
+     * @return Folder
+     */
+    public function folder(): Folder
+    {
+        $dirname = dirname($this->relativePath());
+        return new Folder($dirname === '.' ? '' : $dirname, $this->disk);
     }
 }

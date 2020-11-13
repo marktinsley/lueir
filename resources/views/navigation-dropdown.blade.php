@@ -19,7 +19,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('files.index') }}" :active="request()->routeIs('files.index')">
-                        {{ __('Files') }}
+                        Files
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('files.index') }}">
+                        Favorites
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('files.index') }}">
+                        Recents
                     </x-jet-nav-link>
                 </div>
             </div>

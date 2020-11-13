@@ -108,6 +108,7 @@ abstract class BaseFile implements \ArrayAccess
 
         Storage::put('base-folder1/file1.txt', 'file1 contents');
         Storage::put('base-folder1/file2.md', 'file2 contents');
+        Storage::put('base-file1.md', 'base-file1 contents');
 
         return new Folder();
     }
