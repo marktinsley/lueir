@@ -10,6 +10,7 @@ class MarkdownEditor extends Component
 {
     public string $path;
     public string $contents;
+    public bool $edit = false;
 
     /**
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -29,6 +30,11 @@ class MarkdownEditor extends Component
         }
 
         $this->contents = $file->contents();
+    }
+
+    public function toggleEdit()
+    {
+        $this->edit = !$this->edit;
     }
 
     public function getFolderPathProperty()

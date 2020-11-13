@@ -2,27 +2,43 @@
     <div class="mb-4">
         <div
             class="py-5 px-6 flex justify-end">
-            <x-jet-button class="bg-blue-600">
-                <svg class="w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
-                Save
-            </x-jet-button>
-            <x-jet-button class="ml-2" wire:click="$emit('changePath', '{{ $this->folderPath }}')">
-                Close
-            </x-jet-button>
+            @if($edit)
+                <x-jet-button class="bg-blue-600" wire:click="toggleEdit">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                    </svg>
+                    Save
+                </x-jet-button>
+                <x-jet-button class="ml-2" wire:click="toggleEdit">
+                    Cancel
+                </x-jet-button>
+            @else
+                <x-jet-button class="bg-blue-600" wire:click="toggleEdit">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                    </svg>
+                    Edit
+                </x-jet-button>
+                <x-jet-button class="ml-2" wire:click="$emit('changePath', '{{ $this->folderPath }}')">
+                    Close
+                </x-jet-button>
+            @endif
         </div>
     </div>
     <div class="lg:flex">
-        <div class="flex-grow">
-            <textarea name="contents"
-                      class="w-full rounded p-4"
-                      style="height: 80vh"
-                      wire:model="contents"
-            ></textarea>
-        </div>
+        @if ($edit)
+            <div class="flex-grow">
+                <textarea name="contents"
+                          class="w-full rounded p-4"
+                          style="height: 80vh"
+                          wire:model="contents"
+                ></textarea>
+            </div>
+        @endif
         <article class="prose prose-lg ml-10 mb-12">
             {!! $this->toHtml() !!}
         </article>
