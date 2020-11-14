@@ -6,7 +6,7 @@
         /
         @foreach($this->paths() as $file)
             <a wire:click="$emit('changePath', '{{ $file->relativePath() }}')"
-               @if (!$loop->last) class="cursor-pointer underline hover:text-blue-600" @endif
+               class="@if (!$loop->last) cursor-pointer underline hover:text-blue-600 @else text-blue-800 @endif"
             >{{ $file->name() }}</a> @if ($file instanceof \App\Lib\Files\Folder) / @endif
         @endforeach
     </div>
