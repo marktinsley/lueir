@@ -24,6 +24,10 @@ RUN pecl install redis \
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN addgroup --gid 1024 devgroup
+RUN adduser --disabled-password --gecos "" --force-badname --ingroup devgroup devuser
+USER devuser
+
 RUN alias a="php artisan"
 
 # Set working directory
