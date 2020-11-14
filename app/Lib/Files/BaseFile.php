@@ -92,27 +92,6 @@ abstract class BaseFile implements \ArrayAccess
         return $this->filesystem->path($this->relativePath);
     }
 
-    /**
-     * Scaffold up some fake files and folders to test with.
-     *
-     * @return Folder
-     */
-    public static function fakeScaffold(): Folder
-    {
-        Storage::fake();
-
-        Storage::makeDirectory('base-folder1');
-        Storage::makeDirectory('base-folder1/sub-folder1');
-        Storage::makeDirectory('base-folder1/sub-folder2');
-        Storage::makeDirectory('base-folder2');
-
-        Storage::put('base-folder1/file1.txt', 'file1 contents');
-        Storage::put('base-folder1/file2.md', 'file2 contents');
-        Storage::put('base-file1.md', 'base-file1 contents');
-
-        return new Folder();
-    }
-
     public function offsetExists($offset)
     {
         return $offset === 'relativePath';
@@ -137,5 +116,26 @@ abstract class BaseFile implements \ArrayAccess
     public function offsetUnset($offset)
     {
         $this->relativePath = '';
+    }
+
+    /**
+     * Scaffold up some fake files and folders to test with.
+     *
+     * @return Folder
+     */
+    public static function fakeScaffold(): Folder
+    {
+        Storage::fake();
+
+        Storage::makeDirectory('base-folder1');
+        Storage::makeDirectory('base-folder1/sub-folder1');
+        Storage::makeDirectory('base-folder1/sub-folder2');
+        Storage::makeDirectory('base-folder2');
+
+        Storage::put('base-folder1/file1.txt', 'file1 contents');
+        Storage::put('base-folder1/file2.md', 'file2 contents');
+        Storage::put('base-file1.md', 'base-file1 contents');
+
+        return new Folder();
     }
 }

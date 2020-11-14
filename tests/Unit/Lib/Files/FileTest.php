@@ -109,4 +109,20 @@ class FileTest extends TestCase
         $this->assertInstanceOf(Folder::class, $baseFolder);
         $this->assertEquals('', $baseFolder->relativePath());
     }
+
+    /** @test */
+    function allows_you_to_change_the_content_of_text_files()
+    {
+        // Arrange
+        /** @var File $file */
+        $file = BaseFile::fakeScaffold()->files()->first();
+        $originalContents = $file->contents();
+        $newContents = $originalContents . "\nTesting 123";
+
+        // Execute
+        $file->save($newContents);
+
+        // Check
+        $this->assertSame($newContents, $file->contents());
+    }
 }

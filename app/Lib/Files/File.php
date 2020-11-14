@@ -61,4 +61,14 @@ class File extends BaseFile
         $dirname = dirname($this->relativePath());
         return new Folder($dirname === '.' ? '' : $dirname, $this->disk);
     }
+
+    /**
+     * Save the given string in this file.
+     *
+     * @param string $newContents
+     */
+    public function save(string $newContents)
+    {
+        $this->filesystem->put($this->relativePath, $newContents);
+    }
 }

@@ -22474,6 +22474,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Lueir = {};
 window.Lueir.Clipboard = __webpack_require__(/*! ./lib/Clipboard */ "./resources/js/lib/Clipboard.js").Clipboard;
 window.Lueir.Notification = __webpack_require__(/*! ./lib/Notification */ "./resources/js/lib/Notification.js").Notification;
+Livewire.on('notify', function (type, message) {
+  window.Lueir.Notification.showMessage(message, type);
+});
 
 /***/ }),
 

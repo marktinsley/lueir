@@ -3,7 +3,7 @@
         <div
             class="py-5 px-6 flex justify-end">
             @if($edit)
-                <x-jet-button class="bg-blue-600" wire:click="toggleEdit">
+                <x-jet-button class="bg-blue-600" wire:click="save">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -29,18 +29,20 @@
             @endif
         </div>
     </div>
-    <div class="lg:flex">
+    <div class="xl:flex">
         @if ($edit)
             <div class="flex-grow">
                 <textarea name="contents"
                           class="w-full rounded p-4"
                           style="height: 80vh"
-                          wire:model="contents"
+                          wire:model.debounce.500ms="contents"
                 ></textarea>
             </div>
         @endif
-        <article class="prose prose-lg ml-10 mb-12">
-            {!! $this->toHtml() !!}
-        </article>
+        <div class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 @else mx-auto @endif">
+            <article class="prose prose-lg">
+                {!! $this->toHtml() !!}
+            </article>
+        </div>
     </div>
 </div>
