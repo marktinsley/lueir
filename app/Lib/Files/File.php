@@ -2,6 +2,7 @@
 
 namespace App\Lib\Files;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class File extends BaseFile
@@ -70,5 +71,18 @@ class File extends BaseFile
     public function save(string $newContents)
     {
         $this->filesystem->put($this->relativePath, $newContents);
+    }
+
+    /**
+     * Creates a new file with the given name in the given folder in the given disk.
+     *
+     * @param string $filename
+     * @param Folder|null $folder
+     * @param string $disk
+     */
+    public static function create(string $filename, ?Folder $folder = null, string $disk = 'local')
+    {
+        $folder = $folder ?? new Folder('', $disk);
+        Storage::disk($disk)->put(Str::finish($folder->relativePath(), DIRECTORY_SEPARATOR) . $filename, '');
     }
 }

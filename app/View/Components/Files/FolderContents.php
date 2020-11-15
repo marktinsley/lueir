@@ -21,7 +21,7 @@ class FolderContents extends Component
     public function __construct(?string $path)
     {
         $this->path = $path ?: null;
-        $folder = BaseFile::atPath($this->path);
+        $folder = BaseFile::find($this->path);
 
         if (!($folder instanceof Folder)) {
             throw new \InvalidArgumentException('The path must be a folder. ' . $this->path);

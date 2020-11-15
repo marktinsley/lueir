@@ -18,7 +18,7 @@ class LocationBreadcrumbs extends Component
 
     public function getCurrentFileProperty()
     {
-        return BaseFile::atPath($this->path);
+        return BaseFile::find($this->path);
     }
 
     public function paths()
@@ -28,7 +28,7 @@ class LocationBreadcrumbs extends Component
             ->filter()
             ->map(function (string $pathSegment) use (&$currentPath) {
                 $currentPath .= ($currentPath ? DIRECTORY_SEPARATOR : '') . $pathSegment;
-                return BaseFile::atPath($currentPath);
+                return BaseFile::find($currentPath);
             });
     }
 

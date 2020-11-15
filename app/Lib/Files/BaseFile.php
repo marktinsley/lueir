@@ -46,7 +46,7 @@ abstract class BaseFile implements \ArrayAccess
      * @param string $disk
      * @return static|null
      */
-    public static function atPath(?string $relativePath, string $disk = 'local'): ?self
+    public static function find(?string $relativePath, string $disk = 'local'): ?self
     {
         if (is_null($relativePath)) {
             return new Folder('', $disk);

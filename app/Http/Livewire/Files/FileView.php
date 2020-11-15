@@ -18,7 +18,7 @@ class FileView extends Component
 
     public function file()
     {
-        return BaseFile::atPath(empty($this->path) ? null : $this->path);
+        return BaseFile::find(empty($this->path) ? null : $this->path);
     }
 
     public function render()

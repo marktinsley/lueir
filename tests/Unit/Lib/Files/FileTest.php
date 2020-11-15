@@ -5,6 +5,7 @@ namespace Tests\Unit\Lib\Files;
 use App\Lib\Files\BaseFile;
 use App\Lib\Files\File;
 use App\Lib\Files\Folder;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class FileTest extends TestCase
@@ -124,5 +125,22 @@ class FileTest extends TestCase
 
         // Check
         $this->assertSame($newContents, $file->contents());
+    }
+
+    /** @test */
+    function creates_new_files()
+    {
+        // Arrange
+        Storage::fake();
+        $filename = 'test.md';
+
+        // Pre-check
+        $this->assertNull(BaseFile::find('test.md'));
+
+        // Execute
+        File::create($filename);
+
+        // Check
+        $this->assertInstanceOf(File::class, BaseFile::find('test.md'));
     }
 }

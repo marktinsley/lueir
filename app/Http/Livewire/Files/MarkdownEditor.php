@@ -46,7 +46,7 @@ class MarkdownEditor extends Component
 
     public function getFileProperty()
     {
-        return Files\BaseFile::atPath(empty($this->path) ? null : $this->path);
+        return Files\BaseFile::find(empty($this->path) ? null : $this->path);
     }
 
     public function getFolderPathProperty()

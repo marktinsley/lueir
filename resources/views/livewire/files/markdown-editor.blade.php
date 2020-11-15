@@ -3,7 +3,7 @@
         <div
             class="py-5 px-6 flex justify-end">
             @if($edit)
-                <x-jet-button class="bg-blue-600" wire:click="save">
+                <x-jet-button class="bg-blue-600" wire:click="save" wire:loading.attr="disabled">
                     <svg class="w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -11,9 +11,9 @@
                     </svg>
                     Save
                 </x-jet-button>
-                <x-jet-button class="ml-2" wire:click="toggleEdit">
+                <x-jet-secondary-button class="ml-2" wire:click="toggleEdit" wire:loading.attr="disabled">
                     Cancel
-                </x-jet-button>
+                </x-jet-secondary-button>
             @else
                 <x-jet-button class="bg-blue-600" wire:click="toggleEdit">
                     <svg class="w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -23,9 +23,9 @@
                     </svg>
                     Edit
                 </x-jet-button>
-                <x-jet-button class="ml-2" wire:click="$emit('changePath', '{{ $this->folderPath }}')">
+                <x-jet-secondary-button class="ml-2" wire:click="$emit('changePath', '{{ $this->folderPath }}')">
                     Close
-                </x-jet-button>
+                </x-jet-secondary-button>
             @endif
         </div>
     </div>
@@ -39,7 +39,8 @@
                 ></textarea>
             </div>
         @endif
-        <div class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 @else mx-auto @endif">
+        <div
+            class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 @else mx-auto @endif">
             <article class="prose prose-lg">
                 {!! $this->toHtml() !!}
             </article>
