@@ -2,8 +2,11 @@
 
 namespace App\Lib\Files;
 
+use App\Exceptions\Files\FileExistsException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @property string relativePath
@@ -46,5 +49,28 @@ class Folder extends BaseFile implements Arrayable
             ...$this->folders()->map->relativePath(),
             ...$this->files()->map->relativePath(),
         ];
+    }
+
+    /**
+     * Create a folder in the given folder in the given disk.
+     *
+     * @param string $name
+     * @param Folder|null $parentFolder
+     * @param string $disk
+     * @return static
+     * @throws FileExistsException
+     */
+    public static function create(string $name, ?Folder $parentFolder = null, string $disk = 'local'): self
+    {
+        $parentFolder = $parentFolder ?? new Folder('', $disk);
+        $fullPath = Str::finish($parentFolder->relativePath(), DIRECTORY_SEPARATOR) . $name;
+
+        if (self::find($fullPath)) {
+            throw new FileExistsException('Cannot create folder. Folder already exists with that name.');
+        }
+
+        Storage::disk($disk)->makeDirectory($fullPath);
+
+        return self::find($fullPath);
     }
 }

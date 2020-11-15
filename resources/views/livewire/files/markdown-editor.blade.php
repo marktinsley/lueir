@@ -3,7 +3,7 @@
         <div
             class="py-5 px-6 flex justify-end">
             @if($edit)
-                <x-jet-button class="bg-blue-600" wire:click="save" wire:loading.attr="disabled">
+                <x-jet-button wire:click="save" wire:loading.attr="disabled">
                     <svg class="w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -15,7 +15,7 @@
                     Cancel
                 </x-jet-secondary-button>
             @else
-                <x-jet-button class="bg-blue-600" wire:click="toggleEdit">
+                <x-jet-button wire:click="toggleEdit">
                     <svg class="w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

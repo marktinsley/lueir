@@ -2,6 +2,7 @@
 
 namespace App\Lib\Files;
 
+use App\Exceptions\Files\FileExistsException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -74,15 +75,25 @@ class File extends BaseFile
     }
 
     /**
-     * Creates a new file with the given name in the given folder in the given disk.
+     * Create a new file with the given name in the given folder in the given disk.
      *
      * @param string $filename
      * @param Folder|null $folder
      * @param string $disk
+     * @return File
+     * @throws FileExistsException
      */
-    public static function create(string $filename, ?Folder $folder = null, string $disk = 'local')
+    public static function create(string $filename, ?Folder $folder = null, string $disk = 'local'): self
     {
         $folder = $folder ?? new Folder('', $disk);
-        Storage::disk($disk)->put(Str::finish($folder->relativePath(), DIRECTORY_SEPARATOR) . $filename, '');
+        $fullPath = Str::finish($folder->relativePath(), DIRECTORY_SEPARATOR) . $filename;
+
+        if (self::find($fullPath)) {
+            throw new FileExistsException('Cannot create file. File already exists with that name.');
+        }
+
+        Storage::disk($disk)->put($fullPath, '');
+
+        return self::find($fullPath);
     }
 }

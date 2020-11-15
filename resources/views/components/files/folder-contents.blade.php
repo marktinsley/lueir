@@ -1,4 +1,14 @@
 <div>
+    <div class="mb-4">
+        <div class="py-5 px-6 flex justify-end">
+            <livewire:files.new-file folder-path="{{ $path }}"/>
+
+            <div class="ml-2">
+                <livewire:files.new-folder parent-path="{{ $path }}"/>
+            </div>
+        </div>
+    </div>
+
     @if ($folders->isEmpty() && $files->isEmpty())
         <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
             <div class="flex">
@@ -15,21 +25,6 @@
             </div>
         </div>
     @else
-        <div class="mb-4">
-            <div
-                class="py-5 px-6 flex justify-end">
-                <livewire:files.new-file folder-path="{{ $path }}"/>
-
-                <x-jet-button class="ml-2">
-                    <svg class="w-6 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
-                        <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 11h4m-2-2v4"/>
-                    </svg>
-                    New Folder
-                </x-jet-button>
-            </div>
-        </div>
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             @foreach($folders as $folder)
                 <a wire:click="$emit('changePath', '{{ $folder->relativePath() }}')"
@@ -59,5 +54,6 @@
                     </div>
                 </a>
             @endforeach
-            @endif
         </div>
+    @endif
+</div>

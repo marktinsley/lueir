@@ -135,12 +135,12 @@ class FileTest extends TestCase
         $filename = 'test.md';
 
         // Pre-check
-        $this->assertNull(BaseFile::find('test.md'));
+        $this->assertNull(Folder::find($filename));
 
         // Execute
         File::create($filename);
 
         // Check
-        $this->assertInstanceOf(File::class, BaseFile::find('test.md'));
+        $this->assertInstanceOf(File::class, Folder::find($filename));
     }
 }

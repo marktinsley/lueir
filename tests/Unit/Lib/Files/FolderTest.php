@@ -5,6 +5,7 @@ namespace Tests\Unit\Lib\Files;
 use App\Lib\Files\BaseFile;
 use App\Lib\Files\File;
 use App\Lib\Files\Folder;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class FolderTest extends TestCase
@@ -157,5 +158,22 @@ class FolderTest extends TestCase
 
         // Check
         $this->assertSame($pathToSearchFor, $foundFolder->relativePath());
+    }
+
+    /** @test */
+    function creates_new_folders()
+    {
+        // Arrange
+        Storage::fake();
+        $name = 'a-folder';
+
+        // Pre-check
+        $this->assertNull(Folder::find($name));
+
+        // Execute
+        Folder::create($name);
+
+        // Check
+        $this->assertInstanceOf(Folder::class, Folder::find($name));
     }
 }
