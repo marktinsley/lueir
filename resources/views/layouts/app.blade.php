@@ -35,7 +35,7 @@
 
     <!-- Page Content -->
     <main>
-        <x-files.menu-drawer/>
+        <livewire:files.menu-drawer/>
         {{ $slot }}
     </main>
 </div>
