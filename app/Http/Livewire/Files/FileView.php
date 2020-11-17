@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Files;
 
+use App\Events\PathAccessed;
 use App\Lib\Files\BaseFile;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class FileView extends Component
     public function changePath(string $newPath)
     {
         $this->path = $newPath;
+        PathAccessed::dispatch($newPath);
     }
 
     public function file()

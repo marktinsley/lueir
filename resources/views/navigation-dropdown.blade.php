@@ -21,12 +21,6 @@
                     <x-jet-nav-link href="{{ route('files.index') }}" :active="request()->routeIs('files.index')">
                         Files
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('files.index') }}">
-                        Favorites
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('files.index') }}">
-                        Recents
-                    </x-jet-nav-link>
                 </div>
             </div>
 

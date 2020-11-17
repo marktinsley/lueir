@@ -1,13 +1,15 @@
 <div>
-    <div class="mb-4">
-        <div class="py-5 px-6 flex justify-end">
-            <livewire:files.new-file folder-path="{{ $path }}"/>
+    @if ($path)
+        <div class="mb-4">
+            <div class="py-5 px-6 flex justify-end">
+                <livewire:files.new-file folder-path="{{ $path }}"/>
 
-            <div class="ml-2">
-                <livewire:files.new-folder parent-path="{{ $path }}"/>
+                <div class="ml-2">
+                    <livewire:files.new-folder parent-path="{{ $path }}"/>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     @if ($folders->isEmpty() && $files->isEmpty())
         <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">

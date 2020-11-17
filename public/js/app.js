@@ -22473,6 +22473,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Lueir = {};
 window.Lueir.Clipboard = __webpack_require__(/*! ./lib/Clipboard */ "./resources/js/lib/Clipboard.js").Clipboard;
+window.Lueir.MenuDrawer = __webpack_require__(/*! ./lib/MenuDrawer */ "./resources/js/lib/MenuDrawer.js").MenuDrawer;
 window.Lueir.Notification = __webpack_require__(/*! ./lib/Notification */ "./resources/js/lib/Notification.js").Notification;
 Livewire.on('notify', function (type, message) {
   window.Lueir.Notification.showMessage(message, type);
@@ -22547,6 +22548,44 @@ var Clipboard = /*#__PURE__*/function () {
   }]);
 
   return Clipboard;
+}();
+
+/***/ }),
+
+/***/ "./resources/js/lib/MenuDrawer.js":
+/*!****************************************!*\
+  !*** ./resources/js/lib/MenuDrawer.js ***!
+  \****************************************/
+/*! exports provided: MenuDrawer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MenuDrawer", function() { return MenuDrawer; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MenuDrawer = /*#__PURE__*/function () {
+  function MenuDrawer() {
+    _classCallCheck(this, MenuDrawer);
+  }
+
+  _createClass(MenuDrawer, null, [{
+    key: "show",
+    value: function show() {
+      document.getElementById('menu-drawer').show();
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      document.getElementById('menu-drawer').hide();
+    }
+  }]);
+
+  return MenuDrawer;
 }();
 
 /***/ }),

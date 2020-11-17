@@ -4,6 +4,7 @@ namespace App\Lib\Files;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 abstract class BaseFile implements \ArrayAccess
 {
@@ -65,11 +66,18 @@ abstract class BaseFile implements \ArrayAccess
     /**
      * Get the name of the file/folder.
      *
+     * @param bool $includeDirName
      * @return string
      */
-    public function name(): string
+    public function name(bool $includeDirName = false): string
     {
-        return basename($this->relativePath);
+        $result = basename($this->relativePath);
+
+        if ($includeDirName) {
+            $result = Str::of(dirname($this->relativePath))->split('#[/\\\\]#')->last() . DIRECTORY_SEPARATOR . $result;
+        }
+
+        return $result;
     }
 
     /**

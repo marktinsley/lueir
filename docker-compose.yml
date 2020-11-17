@@ -13,10 +13,10 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - redis
-      - db
+ #    - db
     links:
       - redis
-      - db
+ #    - db
     working_dir: /app
     volumes:
       - .:/app
@@ -26,19 +26,19 @@ services:
     networks:
       - lueir
 
-  db:
-    image: mysql:8
-    environment:
-      MYSQL_USER: "${DB_USERNAME}"
-      MYSQL_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_DATABASE: "${DB_DATABASE}"
-    ports:
-      - 3309:3306
-    volumes:
-      - ./docker/db/data:/var/lib/mysql
-    networks:
-      - lueir
+  #db:
+  #  image: mysql:8
+  #  environment:
+  #    MYSQL_USER: "${DB_USERNAME}"
+  #    MYSQL_PASSWORD: "${DB_PASSWORD}"
+  #    MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+  #    MYSQL_DATABASE: "${DB_DATABASE}"
+  #  ports:
+  #    - 3309:3306
+  #  volumes:
+  #    - ./docker/db/data:/var/lib/mysql
+  #  networks:
+  #    - lueir
 
   nginx:
     build:
