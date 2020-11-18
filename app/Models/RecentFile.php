@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\RecentFileAdded;
 use App\Lib\Files\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,10 +36,13 @@ class RecentFile extends Model
      */
     public static function record(File $file): File
     {
-        if (!self::mostRecent()->where('path', $file->relativePath())->exists()) {
-            RecentFileAdded::broadcast(
-                self::create(['path' => $file->relativePath()])
-            );
+        /** @var RecentFile $recentRecord */
+        $recentRecord = self::mostRecent()->where('path', $file->relativePath())->first();
+
+        if ($recentRecord) {
+            $recentRecord->touch();
+        } else {
+            self::create(['path' => $file->relativePath()]);
         }
 
         return $file;
@@ -53,7 +55,7 @@ class RecentFile extends Model
      */
     public function scopeMostRecent(Builder $query)
     {
-        $query->reorder()->latest()->take(5);
+        $query->reorder()->latest()->take(15);
     }
 
     /**
