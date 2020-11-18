@@ -28,7 +28,6 @@ class MarkdownEditor extends Component
     public function save()
     {
         $this->file->save($this->contents);
-        $this->edit = false;
         $this->emit('notify', 'success', 'Saved changes');
     }
 

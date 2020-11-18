@@ -37,7 +37,7 @@ class Favorite extends Model
      */
     public static function add(BaseFile $file): BaseFile
     {
-        if (!self::findFile($file)) {
+        if (!self::isFavorite($file)) {
             self::create(['path' => $file->relativePath(), 'disk' => $file->disk()]);
         }
 
@@ -48,14 +48,14 @@ class Favorite extends Model
      * Find a favorite record for the given file.
      *
      * @param BaseFile $file
-     * @return Favorite|Builder|Model|object|null
+     * @return bool
      */
-    public function findFile(BaseFile $file)
+    public static function isFavorite(BaseFile $file): bool
     {
         return self::newQuery()
             ->where('path', $file->relativePath())
             ->where('disk', $file->disk())
-            ->first();
+            ->exists();
     }
 
     /**

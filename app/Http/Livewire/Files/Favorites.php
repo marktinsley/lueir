@@ -15,7 +15,8 @@ class Favorites extends Component
         $this->favorites = Favorite::orderBy('path')->get();
     }
 
-    public function mount() {
+    public function mount()
+    {
         $this->setFavorites();
     }
 
