@@ -16,7 +16,8 @@ class CreateRecentFilesTable extends Migration
         Schema::create('recent_files', function (Blueprint $table) {
             $table->id();
             $table->string('path');
-            $table->timestamp('created_at')->nullable();
+            $table->string('disk');
+            $table->timestamps();
         });
     }
 

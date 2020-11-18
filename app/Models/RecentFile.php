@@ -19,16 +19,6 @@ class RecentFile extends Model
     protected $guarded = [];
 
     /**
-     * Get the name of the "updated at" column.
-     *
-     * @return string|null
-     */
-    public function getUpdatedAtColumn()
-    {
-        return null;
-    }
-
-    /**
      * Record the given file as a recent file.
      *
      * @param File $file
@@ -37,12 +27,12 @@ class RecentFile extends Model
     public static function record(File $file): File
     {
         /** @var RecentFile $recentRecord */
-        $recentRecord = self::mostRecent()->where('path', $file->relativePath())->first();
+        $recentRecord = self::mostRecent()->whereFile($file)->first();
 
         if ($recentRecord) {
             $recentRecord->touch();
         } else {
-            self::create(['path' => $file->relativePath()]);
+            self::create(['path' => $file->relativePath(), 'disk' => $file->disk()]);
         }
 
         return $file;
@@ -55,7 +45,19 @@ class RecentFile extends Model
      */
     public function scopeMostRecent(Builder $query)
     {
-        $query->reorder()->latest()->take(15);
+        $query->reorder()->latest('updated_at')->take(15);
+    }
+
+    /**
+     * Filter down to records for the given file.
+     *
+     * @param Builder $query
+     * @param File $file
+     */
+    public function scopeWhereFile(Builder $query, File $file)
+    {
+        $query->where('path', $file->relativePath())
+            ->where('disk', $file->disk());
     }
 
     /**

@@ -91,6 +91,14 @@ abstract class BaseFile implements \ArrayAccess
     }
 
     /**
+     * Gives you the disk this file is in.
+     */
+    public function disk()
+    {
+        return $this->disk;
+    }
+
+    /**
      * Gives you the absolute path to this file (or folder).
      *
      * @return string

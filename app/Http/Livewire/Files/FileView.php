@@ -18,6 +18,13 @@ class FileView extends Component
         PathAccessed::dispatch($newPath);
     }
 
+    public function mount()
+    {
+        if ($this->path) {
+            PathAccessed::dispatch($this->path);
+        }
+    }
+
     public function file()
     {
         return BaseFile::find(empty($this->path) ? null : $this->path);
