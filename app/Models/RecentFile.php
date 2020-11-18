@@ -67,6 +67,6 @@ class RecentFile extends Model
      */
     public function getFile(): ?File
     {
-        return File::find($this->path);
+        return File::find($this->path, $this->disk);
     }
 }
