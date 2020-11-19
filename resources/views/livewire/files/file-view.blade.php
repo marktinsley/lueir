@@ -4,9 +4,7 @@
             <x-files.folder-contents path="{{ $path }}"/>
         </div>
     @elseif ($this->file()->isMarkdown())
-        <div class="mx-auto sm:px-6 lg:px-8" style="max-width: 90rem;">
-            <livewire:files.markdown-editor path="{{ $path }}"/>
-        </div>
+        <livewire:files.markdown-editor path="{{ $path }}"/>
     @elseif ($this->file()->isText())
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <pre style="white-space: pre-wrap">{{ $this->file()->contents() }}</pre>

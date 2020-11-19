@@ -22478,6 +22478,9 @@ window.Lueir.Notification = __webpack_require__(/*! ./lib/Notification */ "./res
 Livewire.on('notify', function (type, message) {
   window.Lueir.Notification.showMessage(message, type);
 });
+Livewire.on('markdown-editor:view-change', function () {
+  console.warn('build mermaid js and inject into DOM');
+});
 
 /***/ }),
 
@@ -22653,8 +22656,8 @@ var Notification = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mark/Code/lueir/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mark/Code/lueir/resources/css/app.scss */"./resources/css/app.scss");
+__webpack_require__(/*! /opt/lueir/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lueir/resources/css/app.scss */"./resources/css/app.scss");
 
 
 /***/ })

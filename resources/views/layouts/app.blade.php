@@ -37,6 +37,17 @@
     <main>
         {{ $slot }}
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.ganttConfig = {
+            titleTopMargin:25,
+            barHeight:50,
+            barGap: 20,
+            topPadding: 100,
+        };
+        mermaid.initialize({startOnLoad:true});
+    </script>
 </div>
 
 @stack('modals')

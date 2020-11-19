@@ -1,4 +1,4 @@
-<div>
+<div class="mx-auto sm:px-6 lg:px-8 @if ($fullWidth) w-full @else max-w-6xl @endif">
     <div class="mb-4">
         <div
             class="py-5 px-6 flex justify-end">
@@ -27,6 +27,9 @@
                     Close
                 </x-jet-secondary-button>
             @endif
+                <x-jet-secondary-button class="ml-2" wire:click="$toggle('fullWidth')">
+                    Toggle Width
+                </x-jet-secondary-button>
         </div>
     </div>
     <div class="xl:flex">
@@ -40,8 +43,8 @@
             </div>
         @endif
         <div
-            class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 @else mx-auto @endif">
-            <article class="prose prose-lg">
+            class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 max-w-prose @else mx-auto @if (!$fullWidth) @endif @endif w-full">
+            <article class="prose-lg">
                 {!! $this->toHtml() !!}
             </article>
         </div>

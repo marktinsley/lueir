@@ -15,6 +15,7 @@ class MarkdownEditor extends Component
     public string $path;
     public string $contents;
     public bool $edit = false;
+    public bool $fullWidth = false;
 
     /**
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -41,6 +42,8 @@ class MarkdownEditor extends Component
         if (!$this->edit) {
             $this->setContentsFromFile();
         }
+
+	$this->emit('markdown-editor:view-change');
     }
 
     public function getFileProperty()
