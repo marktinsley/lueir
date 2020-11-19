@@ -45,6 +45,22 @@ class Favorite extends Model
     }
 
     /**
+     * Remove the given file from favorites.
+     *
+     * @param BaseFile $file
+     * @return BaseFile
+     */
+    public static function remove(BaseFile $file): BaseFile
+    {
+        self::query()
+            ->where('path', $file->relativePath())
+            ->where('disk', $file->disk())
+            ->delete();
+
+        return $file;
+    }
+
+    /**
      * Find a favorite record for the given file.
      *
      * @param BaseFile $file
@@ -52,7 +68,7 @@ class Favorite extends Model
      */
     public static function isFavorite(BaseFile $file): bool
     {
-        return self::newQuery()
+        return self::query()
             ->where('path', $file->relativePath())
             ->where('disk', $file->disk())
             ->exists();
