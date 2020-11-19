@@ -7,7 +7,7 @@ use App\Lib\Files\File;
 use App\Lib\Files\Folder;
 use Livewire\Component;
 
-class NewFile extends Component
+class NewFileDialog extends Component
 {
     public string $folderPath;
     public string $filename = '';
@@ -46,6 +46,6 @@ class NewFile extends Component
 
     public function render()
     {
-        return view('livewire.files.new-file');
+        return view('livewire.files.new-file-dialog');
     }
 }

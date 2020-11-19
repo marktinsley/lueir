@@ -6,7 +6,7 @@ use App\Exceptions\Files\FileExistsException;
 use App\Lib\Files\Folder;
 use Livewire\Component;
 
-class NewFolder extends Component
+class NewFolderDialog extends Component
 {
     public string $parentPath;
     public string $name = '';
@@ -45,6 +45,6 @@ class NewFolder extends Component
 
     public function render()
     {
-        return view('livewire.files.new-folder');
+        return view('livewire.files.new-folder-dialog');
     }
 }

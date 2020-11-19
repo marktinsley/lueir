@@ -35,7 +35,6 @@
 
     <!-- Page Content -->
     <main>
-        <livewire:files.menu-drawer/>
         {{ $slot }}
     </main>
 </div>
@@ -44,5 +43,6 @@
 
 @livewireScripts
 <script src="{{ mix('js/app.js') }}"></script>
+<livewire:files.side-menu-drawer/>
 </body>
 </html>

@@ -6,7 +6,7 @@ use App\Models\RecentFile;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
-class RecentFiles extends Component
+class RecentFilesList extends Component
 {
     public Collection $recentFiles;
 
@@ -22,6 +22,6 @@ class RecentFiles extends Component
 
     public function render()
     {
-        return view('livewire.files.recent-files');
+        return view('livewire.files.recent-files-list');
     }
 }

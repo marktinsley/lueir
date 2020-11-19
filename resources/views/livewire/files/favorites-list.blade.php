@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.5s="setFavoriteFiles">
     <ul>
         @forelse($favorites as $favorite)
             <li class="py-3 px-4 hover:bg-gray-100 cursor-pointer"

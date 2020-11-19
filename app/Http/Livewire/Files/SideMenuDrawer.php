@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Files;
 
 use Livewire\Component;
 
-class FolderMenu extends Component
+class SideMenuDrawer extends Component
 {
     public function render()
     {
-        return view('livewire.files.folder-menu');
+        return view('livewire.files.side-menu-drawer');
     }
 }
