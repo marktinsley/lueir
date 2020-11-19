@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Lib\Files;
 
-use App\Lib\Files\BaseFile;
 use App\Lib\Files\File;
+use App\Lib\Files\FileFaker;
 use App\Lib\Files\Folder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -15,7 +15,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $file = FileFaker::fake()->scaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame('file1.txt', $file->name());
@@ -26,7 +26,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1' . DIRECTORY_SEPARATOR . 'file1.txt', $folder->relativePath());
@@ -37,7 +37,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $file = FileFaker::fake()->scaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertSame(
@@ -55,7 +55,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $textFile */
-        $textFile = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $textFile = FileFaker::fake()->scaffold()->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertTrue($textFile->isText());
@@ -65,10 +65,11 @@ class FileTest extends TestCase
     function tells_you_if_the_file_is_a_markdown_file()
     {
         // Arrange
+        $rootFolder = FileFaker::fake()->scaffold();
         /** @var File $mdFile */
-        $mdFile = BaseFile::fakeScaffold()->files()->first();
+        $mdFile = $rootFolder->files()->first();
         /** @var File $textFile */
-        $textFile = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $textFile = $rootFolder->folders()->first()->files()->first();
 
         // Execute & Check
         $this->assertTrue($mdFile->isMarkdown());
@@ -80,7 +81,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
         $pathToSearchFor = 'base-folder1' . DIRECTORY_SEPARATOR . 'file1.txt';
 
         // Execute
@@ -93,12 +94,12 @@ class FileTest extends TestCase
     /** @test */
     function gives_you_the_folder_its_contained_in()
     {
-
         // Arrange
+        $rootFolder = FileFaker::fake()->scaffold();
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->folders()->first()->files()->first();
+        $file = $rootFolder->folders()->first()->files()->first();
         /** @var File $baseFile */
-        $baseFile = BaseFile::fakeScaffold()->files()->first();
+        $baseFile = $rootFolder->files()->first();
 
         // Execute
         $folder = $file->folder();
@@ -116,7 +117,7 @@ class FileTest extends TestCase
     {
         // Arrange
         /** @var File $file */
-        $file = BaseFile::fakeScaffold()->files()->first();
+        $file = FileFaker::fake()->scaffold()->files()->first();
         $originalContents = $file->contents();
         $newContents = $originalContents . "\nTesting 123";
 

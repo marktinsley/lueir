@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Lib\Files;
 
-use App\Lib\Files\BaseFile;
+use App\Lib\Files\FileFaker;
 use App\Lib\Files\File;
 use App\Lib\Files\Folder;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +14,7 @@ class FolderTest extends TestCase
     function gives_the_available_base_folders()
     {
         // Arrange
-        $rootFolder = BaseFile::fakeScaffold();
+        $rootFolder = FileFaker::fake()->scaffold();
 
         // Execute
         $folders = $rootFolder->folders();
@@ -31,7 +31,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
 
         // Execute
         $subFolders = $folder->folders();
@@ -49,7 +49,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
 
         // Execute
         $subFiles = $folder->files();
@@ -67,7 +67,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first()->folders()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1' . DIRECTORY_SEPARATOR . 'sub-folder1', $folder->relativePath());
@@ -78,7 +78,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first()->folders()->first();
 
         // Execute & Check
         $this->assertSame(
@@ -96,7 +96,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1', $folder->name());
@@ -107,7 +107,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
 
         // Execute
         $folderContents = $folder->toArray();
@@ -122,7 +122,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first()->folders()->first();
 
         // Execute & Check
         $this->assertSame('base-folder1' . DIRECTORY_SEPARATOR . 'sub-folder1', $folder['relativePath']);
@@ -133,7 +133,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
 
         // Pre-check
         $this->assertSame('base-folder1', $folder['relativePath']);
@@ -150,7 +150,7 @@ class FolderTest extends TestCase
     {
         // Arrange
         /** @var Folder $folder */
-        $folder = BaseFile::fakeScaffold()->folders()->first();
+        $folder = FileFaker::fake()->scaffold()->folders()->first();
         $pathToSearchFor = 'base-folder1' . DIRECTORY_SEPARATOR . 'sub-folder2';
 
         // Execute

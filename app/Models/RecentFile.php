@@ -42,10 +42,11 @@ class RecentFile extends Model
      * Filter down to the most recent files.
      *
      * @param Builder $query
+     * @param int $take
      */
-    public function scopeMostRecent(Builder $query)
+    public function scopeMostRecent(Builder $query, int $take = 15)
     {
-        $query->reorder()->latest('updated_at')->take(15);
+        $query->reorder()->latest('updated_at')->skip(0)->take($take);
     }
 
     /**
