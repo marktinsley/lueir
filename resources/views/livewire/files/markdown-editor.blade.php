@@ -35,7 +35,7 @@
                 <textarea name="contents"
                           class="w-full rounded p-4"
                           style="height: 80vh"
-                          wire:model.debounce.500ms="contents"
+                          wire:model="contents"
                 ></textarea>
             </div>
         @endif

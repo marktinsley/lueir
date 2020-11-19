@@ -22635,7 +22635,8 @@ var Notification = /*#__PURE__*/function () {
       new noty__WEBPACK_IMPORTED_MODULE_0___default.a({
         text: message,
         type: type,
-        theme: 'relax'
+        theme: 'relax',
+        timeout: 1000
       }).show();
     }
   }]);

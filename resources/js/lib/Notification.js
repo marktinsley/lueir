@@ -18,6 +18,7 @@ export class Notification {
             text: message,
             type,
             theme: 'relax',
+            timeout: 1000,
         }).show();
     }
 }
