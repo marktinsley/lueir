@@ -10,6 +10,7 @@ use Illuminate\View\Component;
 class FolderContents extends Component
 {
     public ?string $path;
+    public $folder;
     public Collection $folders;
     public Collection $files;
 
@@ -21,14 +22,14 @@ class FolderContents extends Component
     public function __construct(?string $path)
     {
         $this->path = $path ?: null;
-        $folder = BaseFile::find($this->path);
+        $this->folder = BaseFile::find($this->path);
 
-        if (!($folder instanceof Folder)) {
+        if (!($this->folder instanceof Folder)) {
             throw new \InvalidArgumentException('The path must be a folder. ' . $this->path);
         }
 
-        $this->folders = $folder->folders();
-        $this->files = $folder->files();
+        $this->folders = $this->folder->folders();
+        $this->files = $this->folder->files();
     }
 
     /**
