@@ -10,7 +10,6 @@ class RenameDialog extends Component
     public string $path;
     public string $name;
     public bool $dialogOpen = false;
-    public bool $creatingNewFolder = false;
     protected $listeners = ['changePath'];
 
     public function mount()

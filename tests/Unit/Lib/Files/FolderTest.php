@@ -6,6 +6,7 @@ use App\Lib\Files\File;
 use App\Lib\Files\FileFaker;
 use App\Lib\Files\Folder;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FileExistsException;
 use Tests\TestCase;
 
 class FolderTest extends TestCase
@@ -190,5 +191,50 @@ class FolderTest extends TestCase
         $this->assertEquals('my/new/new-folder-name', $renamedFolder->relativePath());
         $this->assertNull(Folder::find('my/new/folder1'));
         $this->assertInstanceOf(Folder::class, Folder::find($renamedFolder->relativePath()));
+    }
+
+    /** @test */
+    function moves_folders()
+    {
+        // Arrange
+        $folder = FileFaker::fake()->folder('my/new/folder');
+
+        // Execute
+        $movedFolder = $folder->move('new/place');
+
+        // Check
+        $this->assertEquals('new/place/folder', $movedFolder->relativePath());
+        $this->assertNull(Folder::find('my/new/folder'));
+        $this->assertInstanceOf(Folder::class, Folder::find($movedFolder->relativePath()));
+    }
+
+    /** @test */
+    function prevents_moving_a_folder_on_top_of_another()
+    {
+        // Arrange
+        /**
+         * @var Folder $folder1
+         * @var Folder $folder2
+         */
+        $faker = FileFaker::fake();
+        $folder1 = $faker->folder('orange/folder1');
+        $folder2 = $faker->folder('blue/folder1');
+
+        // Execute
+        $this->expectException(FileExistsException::class);
+        $folder1->move($folder2->parent()->relativePath());
+    }
+
+    /** @test */
+    function gives_the_parent_folder()
+    {
+        // Arrange
+        $faker = FileFaker::fake();
+        $folder = $faker->folder('my/new/folder');
+        $folderWithoutParent = $faker->folder('no-parent-folder');
+
+        // Execute & Check
+        $this->assertEquals('my/new', $folder->parent()->relativePath());
+        $this->assertNull($folderWithoutParent->parent());
     }
 }

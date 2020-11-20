@@ -113,6 +113,21 @@ abstract class BaseFile implements \ArrayAccess
     }
 
     /**
+     * Move this file/folder.
+     *
+     * @param string $newPath Path to a folder (pre-existing or not).
+     * @return $this
+     */
+    public function move(string $newPath): self
+    {
+        $newPath .= DIRECTORY_SEPARATOR . $this->name();
+        $this->filesystem->move($this->relativePath, $newPath);
+        $this->relativePath = $newPath;
+
+        return $this;
+    }
+
+    /**
      * Gives you the absolute path to this file (or folder).
      *
      * @return string

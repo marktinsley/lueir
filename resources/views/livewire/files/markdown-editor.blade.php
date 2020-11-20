@@ -30,10 +30,15 @@
             <x-jet-secondary-button class="ml-2" wire:click="$toggle('fullWidth')">
                 Toggle Width
             </x-jet-secondary-button>
+            <div class="ml-2">
+                <livewire:files.rename-dialog path="{{ $path }}"/>
+            </div>
+            <div class="ml-2">
+                <livewire:files.move-dialog path="{{ $path }}"/>
+            </div>
             <div class="py-3 px-3">
                 <livewire:files.favorites-toggle path="{{ $path }}"/>
             </div>
-            <livewire:files.rename-dialog path="{{ $path }}"/>
         </div>
     </div>
     <div class="xl:flex">

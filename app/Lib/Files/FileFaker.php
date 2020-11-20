@@ -52,7 +52,7 @@ class FileFaker
     {
         Storage::disk($this->disk)->put($path, $contents);
 
-        return File::find($path);
+        return File::find($path, $this->disk);
     }
 
     /**
@@ -70,7 +70,7 @@ class FileFaker
     /**
      * Add a folder at the given path.
      *
-     * @param string $filePath
+     * @param string $path
      * @param array $files
      * @return Folder
      */
@@ -86,6 +86,6 @@ class FileFaker
             }
         }
 
-        return Folder::find($path);
+        return Folder::find($path, $this->disk);
     }
 }

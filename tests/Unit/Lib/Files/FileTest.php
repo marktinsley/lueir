@@ -6,6 +6,7 @@ use App\Lib\Files\File;
 use App\Lib\Files\FileFaker;
 use App\Lib\Files\Folder;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FileExistsException;
 use Tests\TestCase;
 
 class FileTest extends TestCase
@@ -158,5 +159,35 @@ class FileTest extends TestCase
         $this->assertEquals('my/new/renamed-file.txt', $renamedFile->relativePath());
         $this->assertNull(File::find('my/new/file.txt'));
         $this->assertInstanceOf(File::class, File::find($renamedFile->relativePath()));
+    }
+
+    /** @test */
+    function moves_files()
+    {
+        // Arrange
+        $file = FileFaker::fake()->file('my/new/file.txt');
+
+        // Execute
+        $movedFile = $file->move('new/place');
+
+        // Check
+        $this->assertEquals('new/place/file.txt', $movedFile->relativePath());
+        $this->assertNull(File::find('my/new/file.txt'));
+        $this->assertInstanceOf(File::class, File::find($movedFile->relativePath()));
+    }
+
+    /** @test */
+    function prevents_moving_a_file_on_top_of_another()
+    {
+        // Arrange
+        /**
+         * @var File $file1
+         * @var File $file2
+         */
+        [$file1, $file2] = FileFaker::fake()->files(['orange/file1.txt', 'blue/file1.txt'])->toArray();
+
+        // Execute
+        $this->expectException(FileExistsException::class);
+        $file1->move($file2->folder()->relativePath());
     }
 }

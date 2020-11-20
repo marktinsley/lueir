@@ -39,16 +39,13 @@ class Folder extends BaseFile implements Arrayable
     }
 
     /**
-     * Get the instance as an array.
+     * Gives you the parent folder of this folder, if any.
      *
-     * @return array
+     * @return Folder|null
      */
-    public function toArray()
+    public function parent(): ?Folder
     {
-        return [
-            ...$this->folders()->map->relativePath(),
-            ...$this->files()->map->relativePath(),
-        ];
+        return self::find(dirname($this->relativePath()));
     }
 
     /**
@@ -72,5 +69,18 @@ class Folder extends BaseFile implements Arrayable
         Storage::disk($disk)->makeDirectory($fullPath);
 
         return self::find($fullPath);
+    }
+
+    /**
+     * Get the instance as an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            ...$this->folders()->map->relativePath(),
+            ...$this->files()->map->relativePath(),
+        ];
     }
 }
