@@ -1,10 +1,11 @@
-<div wire:poll.5s="setFavoriteFiles">
-    <ul>
-        @forelse($favorites as $favorite)
+<div>
+    <ul wire:poll.10s>
+        @forelse($favoriteFiles as $fileInfo)
             <li class="py-3 px-4 hover:bg-gray-100 cursor-pointer"
-                title="{{ $favorite->path }}"
-                onclick="Livewire.emit('changePath', '{{ $favorite->path }}'); Lueir.MenuDrawer.hide();">
-                {{ $favorite->getFile()->name(true) }}
+                wire:key="{{ $fileInfo['relativePath'] }}"
+                title="{{ $fileInfo['relativePath'] }}"
+                onclick="Livewire.emit('changePath', '{{ $fileInfo['relativePath'] }}'); Lueir.MenuDrawer.hide();">
+                {{ $fileInfo['truncatedPath'] }}
             </li>
         @empty
             <li class="py-3 px-4">

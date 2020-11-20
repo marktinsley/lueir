@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\Files;
 
+use App\Lib\Files\BaseFile;
 use App\Models\Favorite;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class FavoritesList extends Component
 {
-    public Collection $favorites;
+    public array $favoriteFiles;
 
     public function mount()
     {
@@ -17,7 +18,17 @@ class FavoritesList extends Component
 
     public function setFavoriteFiles()
     {
-        $this->favorites = Favorite::orderBy('path')->get();
+        $this->favoriteFiles = Favorite::query()->get()
+            ->map->getFile()
+            ->filter()
+            ->map(fn(BaseFile $file) => [
+                'relativePath' => $file->relativePath(),
+                'truncatedPath' => strrev(
+                    Str::of(strrev($file->relativePath()))->replaceMatches('#[/\\\\]#', ' / ')->limit(40)
+                ),
+            ])
+            ->sortBy('truncatedPath')
+            ->toArray();
     }
 
     public function render()
