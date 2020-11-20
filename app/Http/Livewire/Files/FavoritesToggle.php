@@ -10,16 +10,24 @@ class FavoritesToggle extends Component
 {
     public ?string $path;
     public bool $isFavorite;
-    public $listeners = ['favoriteAdded'];
 
     public function mount()
     {
         $this->isFavorite = Favorite::isFavorite($this->file);
     }
 
-    public function favoriteAdded()
+    public function addFavorite(string $path)
     {
-        $this->isFavorite = Favorite::isFavorite($this->file);
+        $file = BaseFile::find($path);
+        if (Favorite::isFavorite($file)) {
+            Favorite::remove($file);
+            $this->emit('notify', 'success', 'Removed from favorites');
+            $this->isFavorite = false;
+        } else {
+            Favorite::add($file);
+            $this->emit('notify', 'success', 'Added to favorites');
+            $this->isFavorite = true;
+        }
     }
 
     public function getFileProperty()
