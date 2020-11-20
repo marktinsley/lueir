@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="pt-2 px-3">
-                    <livewire:files.file-context-menu/>
+                    <livewire:files.file-context-menu path="{{ $path }}"/>
                 </div>
             @endif
         </div>

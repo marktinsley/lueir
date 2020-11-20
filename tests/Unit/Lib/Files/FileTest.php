@@ -144,4 +144,19 @@ class FileTest extends TestCase
         // Check
         $this->assertInstanceOf(File::class, Folder::find($filename));
     }
+
+    /** @test */
+    function renames_files()
+    {
+        // Arrange
+        $file = FileFaker::fake()->file('my/new/file.txt');
+
+        // Execute
+        $renamedFile = $file->rename('renamed-file.txt');
+
+        // Check
+        $this->assertEquals('my/new/renamed-file.txt', $renamedFile->relativePath());
+        $this->assertNull(File::find('my/new/file.txt'));
+        $this->assertInstanceOf(File::class, File::find($renamedFile->relativePath()));
+    }
 }

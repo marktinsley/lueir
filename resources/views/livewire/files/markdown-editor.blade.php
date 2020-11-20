@@ -27,9 +27,13 @@
                     Close
                 </x-jet-secondary-button>
             @endif
-                <x-jet-secondary-button class="ml-2" wire:click="$toggle('fullWidth')">
-                    Toggle Width
-                </x-jet-secondary-button>
+            <x-jet-secondary-button class="ml-2" wire:click="$toggle('fullWidth')">
+                Toggle Width
+            </x-jet-secondary-button>
+            <div class="py-3 px-3">
+                <livewire:files.favorites-toggle path="{{ $path }}"/>
+            </div>
+            <livewire:files.rename-dialog path="{{ $path }}"/>
         </div>
     </div>
     <div class="xl:flex">

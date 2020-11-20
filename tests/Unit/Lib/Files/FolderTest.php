@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Lib\Files;
 
-use App\Lib\Files\FileFaker;
 use App\Lib\Files\File;
+use App\Lib\Files\FileFaker;
 use App\Lib\Files\Folder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -175,5 +175,20 @@ class FolderTest extends TestCase
 
         // Check
         $this->assertInstanceOf(Folder::class, Folder::find($name));
+    }
+
+    /** @test */
+    function renames_folders()
+    {
+        // Arrange
+        $folder = FileFaker::fake()->folder('my/new/folder1');
+
+        // Execute
+        $renamedFolder = $folder->rename('new-folder-name');
+
+        // Check
+        $this->assertEquals('my/new/new-folder-name', $renamedFolder->relativePath());
+        $this->assertNull(Folder::find('my/new/folder1'));
+        $this->assertInstanceOf(Folder::class, Folder::find($renamedFolder->relativePath()));
     }
 }

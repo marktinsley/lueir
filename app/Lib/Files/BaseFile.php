@@ -93,9 +93,23 @@ abstract class BaseFile implements \ArrayAccess
     /**
      * Gives you the disk this file is in.
      */
-    public function disk()
+    public function disk(): string
     {
         return $this->disk;
+    }
+
+    /**
+     * Rename this file/folder.
+     *
+     * @param string $newName
+     * @return $this
+     */
+    public function rename(string $newName): self
+    {
+        $newPath = dirname($this->relativePath()) . DIRECTORY_SEPARATOR . $newName;
+        $this->filesystem->move($this->relativePath, $newPath);
+        $this->relativePath = $newPath;
+        return $this;
     }
 
     /**
