@@ -9,14 +9,16 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <livewire:files.new-file-dialog folder-path="{{ $path }}"/>
+                    <div class="py-3 px-3 mr-4">
+                        <livewire:files.favorites-toggle path="{{ $path }}"/>
+                    </div>
+
+                    <div>
+                        <livewire:files.new-file-dialog folder-path="{{ $path }}"/>
+                    </div>
 
                     <div class="ml-2">
                         <livewire:files.new-folder-dialog parent-path="{{ $path }}"/>
-                    </div>
-
-                    <div class="py-3 px-3">
-                        <livewire:files.favorites-toggle path="{{ $path }}"/>
                     </div>
                 </div>
             @endif

@@ -11,6 +11,10 @@
                 </x-jet-secondary-button>
             </x-files.manipulation-buttons>
             <div class="flex justify-end">
+                <div class="py-3 px-3 mr-4">
+                    <livewire:files.favorites-toggle path="{{ $path }}"/>
+                </div>
+
                 @if($edit)
                     <x-jet-button wire:click="save" wire:loading.attr="disabled">
                         <svg class="w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -38,10 +42,6 @@
                         Close
                     </x-jet-secondary-button>
                 @endif
-
-                <div class="py-3 px-3">
-                    <livewire:files.favorites-toggle path="{{ $path }}"/>
-                </div>
             </div>
         </div>
     </div>
