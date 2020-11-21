@@ -31,7 +31,7 @@ class NewFileDialog extends Component
         $this->validate();
 
         try {
-            File::create($this->filename, new Folder($this->folderPath));
+            File::create($this->filename, Folder::find($this->folderPath));
         } catch (FileExistsException $e) {
             $this->addError('filename', $e->getMessage());
             return;

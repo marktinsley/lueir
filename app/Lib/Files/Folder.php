@@ -16,6 +16,17 @@ class Folder extends BaseFile implements Arrayable
     protected array $ignoreFolders = ['.git', '.idea'];
 
     /**
+     * Get the base folder for a disk.
+     *
+     * @param string $disk
+     * @return Folder
+     */
+    public static function baseFolder(string $disk = 'local'): Folder
+    {
+        return new Folder('', $disk);
+    }
+
+    /**
      * Get the folders within this folder.
      *
      * @return Collection
@@ -82,5 +93,13 @@ class Folder extends BaseFile implements Arrayable
             ...$this->folders()->map->relativePath(),
             ...$this->files()->map->relativePath(),
         ];
+    }
+
+    /**
+     * Delete this folder and everything in it.
+     */
+    public function delete()
+    {
+        $this->filesystem->deleteDirectory($this->relativePath());
     }
 }

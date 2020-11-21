@@ -190,4 +190,21 @@ class FileTest extends TestCase
         $this->expectException(FileExistsException::class);
         $file1->move($file2->folder()->relativePath());
     }
+
+    /** @test */
+    function deletes_files()
+    {
+        // Arrange
+        $file = FileFaker::fake()->file('path/to/file.txt');
+
+        // Pre-check
+        $this->assertInstanceOf(File::class, File::find($file->relativePath()));
+
+        // Execute
+        $file->delete();
+
+        // Check
+        $this->assertInstanceOf(Folder::class, Folder::find($file->folder()->relativePath()));
+        $this->assertNull(File::find($file->relativePath()));
+    }
 }

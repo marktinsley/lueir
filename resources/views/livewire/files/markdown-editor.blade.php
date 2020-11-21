@@ -1,7 +1,6 @@
 <div class="mx-auto sm:px-6 lg:px-8 @if ($fullWidth) w-full @else max-w-6xl @endif">
     <div class="mb-4">
-        <div
-            class="py-5 flex justify-between">
+        <div class="py-5 flex justify-between">
             <div class="flex">
                 <div>
                     <livewire:files.rename-dialog path="{{ $path }}"/>
@@ -9,6 +8,10 @@
 
                 <div class="ml-2">
                     <livewire:files.move-dialog path="{{ $path }}"/>
+                </div>
+
+                <div class="ml-2">
+                    <livewire:files.delete-dialog path="{{ $path }}"/>
                 </div>
 
                 <x-jet-secondary-button wire:click="$toggle('fullWidth')" title="Toggle width" class="ml-2">

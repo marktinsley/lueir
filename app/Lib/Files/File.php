@@ -54,14 +54,25 @@ class File extends BaseFile
     }
 
     /**
+     * Gives you the parent folder for this file (the one it lives in).
+     *
+     * @return Folder
+     */
+    public function parent(): Folder
+    {
+        $dirname = dirname($this->relativePath());
+        return new Folder($dirname === '.' ? '' : $dirname, $this->disk);
+    }
+
+    /**
      * Gives you the folder this file lives inside of.
+     * This is an alias for the parent method.
      *
      * @return Folder
      */
     public function folder(): Folder
     {
-        $dirname = dirname($this->relativePath());
-        return new Folder($dirname === '.' ? '' : $dirname, $this->disk);
+        return $this->parent();
     }
 
     /**
@@ -95,5 +106,13 @@ class File extends BaseFile
         Storage::disk($disk)->put($fullPath, '');
 
         return self::find($fullPath);
+    }
+
+    /**
+     * Delete this file.
+     */
+    public function delete()
+    {
+        $this->filesystem->delete($this->relativePath());
     }
 }

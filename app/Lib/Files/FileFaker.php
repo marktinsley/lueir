@@ -38,7 +38,7 @@ class FileFaker
 
         $this->file('base-file1.md', 'base-file1 contents');
 
-        return new Folder();
+        return Folder::baseFolder();
     }
 
     /**

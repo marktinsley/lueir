@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Files;
 
 use App\Lib\Files\BaseFile;
+use App\Lib\Files\FileHelper;
 use App\Models\Favorite;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class FavoritesList extends Component
@@ -24,7 +24,9 @@ class FavoritesList extends Component
             ->map(fn(BaseFile $file) => [
                 'relativePath' => $file->relativePath(),
                 'truncatedPath' => strrev(
-                    Str::of(strrev($file->relativePath()))->replaceMatches('#[/\\\\]#', ' / ')->limit(40)
+                    FileHelper::readablePath(
+                        strrev($file->relativePath())
+                    )->limit(40)
                 ),
             ])
             ->sortBy('truncatedPath')

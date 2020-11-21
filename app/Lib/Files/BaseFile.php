@@ -33,7 +33,7 @@ abstract class BaseFile implements \ArrayAccess
      * @param string $relativePath The path to the file or folder.
      * @param string $disk The Laravel disk this file is in.
      */
-    public function __construct(string $relativePath = '', string $disk = 'local')
+    protected function __construct(string $relativePath = '', string $disk = 'local')
     {
         $this->relativePath = $relativePath;
         $this->disk = $disk;

@@ -11,6 +11,7 @@ class FolderContents extends Component
 {
     public ?string $path;
     public $folder;
+    public bool $isBaseFolder;
     public Collection $folders;
     public Collection $files;
 
@@ -28,6 +29,7 @@ class FolderContents extends Component
             throw new \InvalidArgumentException('The path must be a folder. ' . $this->path);
         }
 
+        $this->isBaseFolder = is_null($this->folder->parent());
         $this->folders = $this->folder->folders();
         $this->files = $this->folder->files();
     }

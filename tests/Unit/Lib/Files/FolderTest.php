@@ -237,4 +237,21 @@ class FolderTest extends TestCase
         $this->assertEquals('my/new', $folder->parent()->relativePath());
         $this->assertNull($folderWithoutParent->parent());
     }
+
+    /** @test */
+    function deletes_folders()
+    {
+        // Arrange
+        $folder = FileFaker::fake()->folder('path/to/folder');
+
+        // Pre-check
+        $this->assertInstanceOf(Folder::class, Folder::find($folder->relativePath()));
+
+        // Execute
+        $folder->delete();
+
+        // Check
+        $this->assertInstanceOf(Folder::class, Folder::find($folder->parent()->relativePath()));
+        $this->assertNull(Folder::find($folder->relativePath()));
+    }
 }

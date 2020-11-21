@@ -30,7 +30,7 @@ class NewFolderDialog extends Component
         $this->validate();
 
         try {
-            $newFolder = Folder::create($this->name, new Folder($this->parentPath));
+            $newFolder = Folder::create($this->name, Folder::find($this->parentPath));
         } catch (FileExistsException $e) {
             $this->addError('name', $e->getMessage());
             return;
