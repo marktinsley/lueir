@@ -1,5 +1,5 @@
 <div>
-    <x-jet-button wire:click="$toggle('creatingNewFile')">
+    <x-jet-button wire:click="$toggle('dialogOpen')">
         <svg class="w-6 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
              stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -8,7 +8,7 @@
         New File
     </x-jet-button>
 
-    <x-jet-dialog-modal wire:model="creatingNewFile">
+    <x-jet-dialog-modal wire:model="dialogOpen">
         <x-slot name="title">
             New File
         </x-slot>
@@ -24,7 +24,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$toggle('creatingNewFile')"
+            <x-jet-secondary-button wire:click="$toggle('dialogOpen')"
                                     wire:loading.attr="disabled">
                 Cancel
             </x-jet-secondary-button>

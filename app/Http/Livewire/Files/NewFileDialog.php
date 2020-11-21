@@ -11,12 +11,19 @@ class NewFileDialog extends Component
 {
     public string $folderPath;
     public string $filename = '';
-    public bool $creatingNewFile = false;
-    protected $listeners = ['changePath'];
+    public bool $dialogOpen = false;
+    protected $listeners = ['changePath', 'shortcutPressed'];
 
     public function changePath(string $newPath)
     {
         $this->folderPath = $newPath;
+    }
+
+    public function shortcutPressed($shortcut)
+    {
+        if ($shortcut === 'f' && !$this->dialogOpen) {
+            $this->dialogOpen = true;
+        }
     }
 
     public function rules()
@@ -37,7 +44,7 @@ class NewFileDialog extends Component
             return;
         }
 
-        $this->creatingNewFile = false;
+        $this->dialogOpen = false;
         $this->filename = '';
 
         $this->emit('changePath', $this->folderPath);

@@ -12,7 +12,7 @@ class MoveDialog extends Component
     public string $path;
     public ?string $newFolderPath;
     public bool $dialogOpen = false;
-    protected $listeners = ['changePath'];
+    protected $listeners = ['changePath', 'shortcutPressed'];
 
     public function mount()
     {
@@ -23,6 +23,13 @@ class MoveDialog extends Component
     {
         $this->path = $newPath;
         $this->setFolderPath();
+    }
+
+    public function shortcutPressed($shortcut)
+    {
+        if ($shortcut === 'm' && !$this->dialogOpen) {
+            $this->dialogOpen = true;
+        }
     }
 
     private function setFolderPath()

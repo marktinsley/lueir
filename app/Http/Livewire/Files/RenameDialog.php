@@ -10,7 +10,7 @@ class RenameDialog extends Component
     public string $path;
     public string $name;
     public bool $dialogOpen = false;
-    protected $listeners = ['changePath'];
+    protected $listeners = ['changePath', 'shortcutPressed'];
 
     public function mount()
     {
@@ -21,6 +21,13 @@ class RenameDialog extends Component
     {
         $this->path = $newPath;
         $this->setName();
+    }
+
+    public function shortcutPressed($shortcut)
+    {
+        if ($shortcut === 'r' && !$this->dialogOpen) {
+            $this->dialogOpen = true;
+        }
     }
 
     private function setName()
