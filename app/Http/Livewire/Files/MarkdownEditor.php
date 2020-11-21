@@ -42,8 +42,6 @@ class MarkdownEditor extends Component
         if (!$this->edit) {
             $this->setContentsFromFile();
         }
-
-	$this->emit('markdown-editor:view-change');
     }
 
     public function getFileProperty()

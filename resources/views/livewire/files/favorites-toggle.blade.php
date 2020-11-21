@@ -1,13 +1,13 @@
 @if ($this->file)
     <div
-        x-data="{ initialFill: '{{ $isFavorite ? '#ff0000' : '#ffffff' }}', fill: '{{ $isFavorite ? '#ff0000' : '#ffffff' }}' }"
+        x-data="{ initialFill: '{{ $isFavorite ? '#ffff00' : '#ffffff' }}', fill: '{{ $isFavorite ? '#ffff00' : '#ffffff' }}' }"
     >
         <svg class="ml-3 w-5 cursor-pointer" xmlns="http://www.w3.org/2000/svg"
              wire:click="addFavorite('{{ $this->file->relativePath() }}')"
              x-bind:fill="fill"
              stroke="#000055"
              viewBox="0 0 24 24"
-             @mouseenter="fill = '#ff0000'"
+             @mouseenter="fill = '#ffff00'"
              @mouseleave="fill = initialFill"
         >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

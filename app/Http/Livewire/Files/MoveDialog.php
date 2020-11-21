@@ -3,13 +3,14 @@
 namespace App\Http\Livewire\Files;
 
 use App\Lib\Files\BaseFile;
+use App\Lib\Files\File;
 use App\Lib\Files\Folder;
 use Livewire\Component;
 
 class MoveDialog extends Component
 {
     public string $path;
-    public string $newFolderPath;
+    public ?string $newFolderPath;
     public bool $dialogOpen = false;
     protected $listeners = ['changePath'];
 
@@ -28,7 +29,12 @@ class MoveDialog extends Component
     {
         $file = $this->file();
 
-        $this->newFolderPath = $file instanceof Folder ? $file->parent()->relativePath() : $file->folder()->relativePath();
+        $this->newFolderPath = null;
+        if ($file instanceof Folder && $file->parent()) {
+            $this->newFolderPath = $file->parent()->relativePath();
+        } else if ($file instanceof File && $file->folder()) {
+            $this->newFolderPath = $file->folder()->relativePath();
+        }
     }
 
     private function file()
