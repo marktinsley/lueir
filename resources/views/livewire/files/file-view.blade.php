@@ -9,19 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
                 <div class="py-5 flex justify-between">
-                    <div class="flex">
-                        <div>
-                            <livewire:files.rename-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.move-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.delete-dialog path="{{ $path }}"/>
-                        </div>
-                    </div>
+                    <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
                         <livewire:files.favorites-toggle path="{{ $path }}"/>
@@ -35,19 +23,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
                 <div class="py-5 flex justify-between">
-                    <div class="flex">
-                        <div>
-                            <livewire:files.rename-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.move-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.delete-dialog path="{{ $path }}"/>
-                        </div>
-                    </div>
+                    <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
                         <livewire:files.favorites-toggle path="{{ $path }}"/>
@@ -63,19 +39,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
                 <div class="py-5 flex justify-between">
-                    <div class="flex">
-                        <div>
-                            <livewire:files.rename-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.move-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.delete-dialog path="{{ $path }}"/>
-                        </div>
-                    </div>
+                    <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
                         <livewire:files.favorites-toggle path="{{ $path }}"/>

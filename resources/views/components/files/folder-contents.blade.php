@@ -4,17 +4,7 @@
             @if ($path)
                 <div class="flex">
                     @if (!$isBaseFolder)
-                        <div>
-                            <livewire:files.rename-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.move-dialog path="{{ $path }}"/>
-                        </div>
-
-                        <div class="ml-2">
-                            <livewire:files.delete-dialog path="{{ $path }}"/>
-                        </div>
+                        <x-files.manipulation-buttons :path="$path"/>
                     @endif
                 </div>
 

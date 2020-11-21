@@ -1,19 +1,7 @@
 <div class="mx-auto sm:px-6 lg:px-8 @if ($fullWidth) w-full @else max-w-6xl @endif">
     <div class="mb-4">
         <div class="py-5 flex justify-between">
-            <div class="flex">
-                <div>
-                    <livewire:files.rename-dialog path="{{ $path }}"/>
-                </div>
-
-                <div class="ml-2">
-                    <livewire:files.move-dialog path="{{ $path }}"/>
-                </div>
-
-                <div class="ml-2">
-                    <livewire:files.delete-dialog path="{{ $path }}"/>
-                </div>
-
+            <x-files.manipulation-buttons :path="$path">
                 <x-jet-secondary-button wire:click="$toggle('fullWidth')" title="Toggle width" class="ml-2">
                     <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
@@ -21,7 +9,7 @@
                               d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                     </svg>
                 </x-jet-secondary-button>
-            </div>
+            </x-files.manipulation-buttons>
             <div class="flex justify-end">
                 @if($edit)
                     <x-jet-button wire:click="save" wire:loading.attr="disabled">
