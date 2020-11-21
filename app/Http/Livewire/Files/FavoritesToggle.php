@@ -25,7 +25,7 @@ class FavoritesToggle extends Component
 
     private function setIsFavorite()
     {
-        $this->isFavorite = Favorite::isFavorite($this->file);
+        $this->isFavorite = $this->file ? Favorite::isFavorite($this->file) : false;
     }
 
     public function addFavorite(string $path)

@@ -2,8 +2,8 @@
 
 namespace App\View\Components\Files;
 
+use App\Lib\Files\FileHelper;
 use Illuminate\View\Component;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 class MarkdownView extends Component
 {
@@ -16,7 +16,7 @@ class MarkdownView extends Component
      */
     public function __construct(?string $markdown)
     {
-        $this->html = (new GithubFlavoredMarkdownConverter())->convertToHtml($markdown);
+        $this->html = FileHelper::markdownToHtml($markdown);
     }
 
     /**

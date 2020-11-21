@@ -23,7 +23,7 @@ class FileView extends Component
     {
         if ($shortcut === 'u') {
             $parentFolder = $this->file()->parent();
-            $this->emit('changePath', optional($parentFolder)->relativePath());
+            $this->emit('changePath', optional($parentFolder)->relativePath() ?? '');
         }
     }
 

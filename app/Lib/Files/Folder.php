@@ -46,7 +46,7 @@ class Folder extends BaseFile implements Arrayable
     public function files(): Collection
     {
         return collect($this->filesystem->files($this->relativePath()))
-            ->map(fn($filePath) => new File($filePath, $this->disk));
+            ->map(fn($filePath) => BaseFile::find($filePath, $this->disk));
     }
 
     /**

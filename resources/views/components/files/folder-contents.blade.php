@@ -44,42 +44,43 @@
             </div>
         @else
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div>
-                    @foreach($folders as $folder)
-                        <div class="bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer"
-                             onclick="Livewire.emit('changePath', '{{ $folder->relativePath() }}')"
-                             :key="{{ $folder->relativePath() }}">
-                            <div class="flex-none pl-6 pr-4 py-5 w-15">
+                @foreach($folders->concat($files) as $file)
+                    <div onclick="Livewire.emit('changePath', '{{ $file->relativePath() }}')"
+                         :key="{{ $file->relativePath() }}"
+                         class="px-6 bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer">
+                        @if ($file instanceof \App\Lib\Files\Folder)
+                            <div class="flex-none py-5 w-10">
                                 <svg class="w-6 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                      fill="currentColor">
                                     <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
                                 </svg>
                             </div>
-                            <div class="flex-grow py-5">
-                                {{ $folder->name() }}
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div>
-                    @foreach($files as $file)
-                        <div onclick="Livewire.emit('changePath', '{{ $file->relativePath() }}')"
-                             :key="{{ $file->relativePath() }}"
-                             class="py-5 px-6 bg-white hover:bg-gray-600 hover:text-white flex cursor-pointer">
-                            <div class="flex-initial pr-4 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        @else
+                            <div class="flex-none py-5 w-10">
+                                <svg class="w-6 mr-1" xxmlns="http://www.w3.org/2000/svg" fill="none"
+                                     viewBox="0 0 24 24"
                                      stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                                 </svg>
                             </div>
-                            <div>
-                                {{ $file->name() }}
-                            </div>
+                        @endif
+                        <div class="flex-grow py-5">
+                            {{ $file->name() }}
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
         @endif
     </div>
+
+    @if ($readmeFile)
+        <div
+            class="mb-24 mt-24 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 w-full"
+            onclick="Livewire.emit('changePath', '{{ $readmeFile->relativePath() }}')">
+            <div class="pb-6">{{ $readmeFile->name() }}</div>
+
+            <x-files.markdown-view :markdown="$readmeFile->toHtml()"/>
+        </div>
+    @endif
 </div>

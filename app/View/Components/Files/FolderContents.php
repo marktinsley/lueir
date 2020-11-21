@@ -4,14 +4,16 @@ namespace App\View\Components\Files;
 
 use App\Lib\Files\BaseFile;
 use App\Lib\Files\Folder;
+use App\Lib\Files\MarkdownFile;
 use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class FolderContents extends Component
 {
     public ?string $path;
-    public $folder;
+    public Folder $folder;
     public bool $isBaseFolder;
+    public ?MarkdownFile $readmeFile;
     public Collection $folders;
     public Collection $files;
 
@@ -23,15 +25,23 @@ class FolderContents extends Component
     public function __construct(?string $path)
     {
         $this->path = $path ?: null;
-        $this->folder = BaseFile::find($this->path);
+        $folder = BaseFile::find($this->path);
 
-        if (!($this->folder instanceof Folder)) {
+        if (!($folder instanceof Folder)) {
             throw new \InvalidArgumentException('The path must be a folder. ' . $this->path);
         }
 
+        $this->folder = $folder;
         $this->isBaseFolder = is_null($this->folder->parent());
         $this->folders = $this->folder->folders();
         $this->files = $this->folder->files();
+        $this->setReadmeFile();
+    }
+
+    private function setReadmeFile()
+    {
+        $this->readmeFile = $this->files
+            ->first(fn($file) => $file instanceof MarkdownFile && strtolower($file->name()) === 'readme.md');
     }
 
     /**

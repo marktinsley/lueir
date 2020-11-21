@@ -4,6 +4,7 @@ namespace App\Lib\Files;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use League\CommonMark\GithubFlavoredMarkdownConverter;
 
 class FileHelper
 {
@@ -16,5 +17,16 @@ class FileHelper
     public static function readablePath(?string $path): Stringable
     {
         return Str::of($path)->replaceMatches('#[/\\\\]#', ' / ')->trim();
+    }
+
+    /**
+     * Convert the given markdown to HTML.
+     *
+     * @param $markdown
+     * @return string
+     */
+    public static function markdownToHtml($markdown): string
+    {
+        return (new GithubFlavoredMarkdownConverter())->convertToHtml($markdown);
     }
 }

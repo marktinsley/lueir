@@ -56,7 +56,7 @@
             </div>
         @endif
         <div
-            class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 max-w-prose @else mx-auto @if (!$fullWidth) @endif @endif w-full">
+            class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 max-w-prose @else mx-auto @endif w-full">
             <x-files.markdown-view :markdown="$contents"/>
         </div>
     </div>

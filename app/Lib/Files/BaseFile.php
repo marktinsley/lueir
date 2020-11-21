@@ -58,9 +58,18 @@ abstract class BaseFile implements \ArrayAccess
             return null;
         }
 
-        return is_dir($filesystem->path($relativePath))
-            ? new Folder($relativePath, $disk)
-            : new File($relativePath, $disk);
+        if (is_dir($filesystem->path($relativePath))) {
+            return new Folder($relativePath, $disk);
+        }
+
+        $file = new File($relativePath, $disk);
+        $typeChecker = new TypeChecker($file);
+
+        if ($typeChecker->isMarkdown()) {
+            return new MarkdownFile($relativePath, $disk);
+        }
+
+        return $file;
     }
 
     /**
