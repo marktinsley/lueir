@@ -10,19 +10,27 @@ class FileView extends Component
 {
     public ?string $path = null;
     protected $queryString = ['path'];
-    protected $listeners = ['changePath'];
-
-    public function changePath(string $newPath)
-    {
-        $this->path = $newPath;
-        PathAccessed::dispatch($newPath);
-    }
+    protected $listeners = ['changePath', 'shortcutPressed'];
 
     public function mount()
     {
         if ($this->path) {
             PathAccessed::dispatch($this->path);
         }
+    }
+
+    public function shortcutPressed($shortcut)
+    {
+        if ($shortcut === 'u') {
+            $parentFolder = $this->file()->parent();
+            $this->emit('changePath', optional($parentFolder)->relativePath());
+        }
+    }
+
+    public function changePath(string $newPath)
+    {
+        $this->path = $newPath;
+        PathAccessed::dispatch($newPath);
     }
 
     public function file()

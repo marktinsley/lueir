@@ -1,6 +1,6 @@
 export class Shortcuts {
     static setupBindings() {
-        ['e', 'x', 'q', 'w'].forEach(keyCombination => {
+        ['e', 'x', 'q', 'w', 'u'].forEach(keyCombination => {
             Mousetrap.bind(keyCombination, () => Livewire.emit('shortcutPressed', keyCombination));
         });
 

@@ -23814,7 +23814,7 @@ var Shortcuts = /*#__PURE__*/function () {
   _createClass(Shortcuts, null, [{
     key: "setupBindings",
     value: function setupBindings() {
-      ['e', 'x', 'q', 'w'].forEach(function (keyCombination) {
+      ['e', 'x', 'q', 'w', 'u'].forEach(function (keyCombination) {
         Mousetrap.bind(keyCombination, function () {
           return Livewire.emit('shortcutPressed', keyCombination);
         });
