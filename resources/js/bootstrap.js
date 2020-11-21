@@ -1,4 +1,6 @@
 window._ = require('lodash');
+window.Mousetrap = require('mousetrap');
+require('mousetrap-global-bind');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

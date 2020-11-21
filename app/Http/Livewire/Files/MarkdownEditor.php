@@ -16,6 +16,7 @@ class MarkdownEditor extends Component
     public string $contents;
     public bool $edit = false;
     public bool $fullWidth = false;
+    protected $listeners = ['shortcutPressed'];
 
     /**
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
@@ -24,6 +25,20 @@ class MarkdownEditor extends Component
     public function mount()
     {
         $this->setContentsFromFile();
+    }
+
+    public function shortcutPressed($shortcut)
+    {
+        if ($shortcut === 'e' && !$this->edit) {
+            $this->toggleEdit();
+        } elseif ($shortcut === 'q' && $this->edit) {
+            $this->toggleEdit();
+        } elseif ($shortcut === 'x' && $this->edit) {
+            $this->save();
+            $this->toggleEdit();
+        } elseif (in_array($shortcut, ['w', 'save']) && $this->edit) {
+            $this->save();
+        }
     }
 
     public function save()

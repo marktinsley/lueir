@@ -49,15 +49,15 @@
         @if ($edit)
             <div class="flex-grow">
                 <textarea name="contents"
+                          wire:model="contents"
                           class="w-full rounded p-4"
                           style="height: 80vh"
-                          wire:model="contents"
                 ></textarea>
             </div>
         @endif
         <div
             class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 max-w-prose @else mx-auto @if (!$fullWidth) @endif @endif w-full">
-            <article class="prose-lg">
+            <article class="prose prose-lg" style="width: 100%">
                 {!! $this->toHtml() !!}
             </article>
         </div>
