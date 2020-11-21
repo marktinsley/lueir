@@ -70,4 +70,12 @@ class RecentFile extends Model
     {
         return File::find($this->path, $this->disk);
     }
+
+    /**
+     * Clear all the recently viewed files.
+     */
+    public static function clearAll()
+    {
+        self::query()->truncate();
+    }
 }

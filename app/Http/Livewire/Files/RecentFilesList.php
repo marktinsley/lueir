@@ -10,14 +10,21 @@ class RecentFilesList extends Component
 {
     public Collection $recentFiles;
 
+    public function mount()
+    {
+        $this->setRecentFiles();
+    }
+
     public function setRecentFiles()
     {
         $this->recentFiles = RecentFile::mostRecent()->get();
     }
 
-    public function mount()
+    public function clearRecentlyViewed()
     {
+        RecentFile::clearAll();
         $this->setRecentFiles();
+        $this->emit('notify', 'success', 'Cleared recently viewed');
     }
 
     public function render()

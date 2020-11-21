@@ -10,8 +10,20 @@ class FavoritesToggle extends Component
 {
     public ?string $path;
     public bool $isFavorite;
+    protected $listeners = ['changePath'];
 
     public function mount()
+    {
+        $this->setIsFavorite();
+    }
+
+    public function changePath(string $newPath)
+    {
+        $this->path = $newPath;
+        $this->setIsFavorite();
+    }
+
+    private function setIsFavorite()
     {
         $this->isFavorite = Favorite::isFavorite($this->file);
     }
