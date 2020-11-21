@@ -52,32 +52,6 @@ class FileTest extends TestCase
     }
 
     /** @test */
-    function tells_you_if_the_file_is_a_text_file()
-    {
-        // Arrange
-        /** @var File $textFile */
-        $textFile = FileFaker::fake()->scaffold()->folders()->first()->files()->first();
-
-        // Execute & Check
-        $this->assertTrue($textFile->isText());
-    }
-
-    /** @test */
-    function tells_you_if_the_file_is_a_markdown_file()
-    {
-        // Arrange
-        $rootFolder = FileFaker::fake()->scaffold();
-        /** @var File $mdFile */
-        $mdFile = $rootFolder->files()->first();
-        /** @var File $textFile */
-        $textFile = $rootFolder->folders()->first()->files()->first();
-
-        // Execute & Check
-        $this->assertTrue($mdFile->isMarkdown());
-        $this->assertFalse($textFile->isMarkdown());
-    }
-
-    /** @test */
     function allows_you_to_search_by_name_when_in_a_collection()
     {
         // Arrange

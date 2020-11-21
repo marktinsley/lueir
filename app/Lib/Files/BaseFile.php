@@ -64,6 +64,26 @@ abstract class BaseFile implements \ArrayAccess
     }
 
     /**
+     * Get the file type checker for this file.
+     *
+     * @return TypeChecker
+     */
+    public function typeChecker(): TypeChecker
+    {
+        return new TypeChecker($this);
+    }
+
+    /**
+     * Get the mime type of this file/folder.
+     *
+     * @return string
+     */
+    public function mimeType(): string
+    {
+        return $this->filesystem->mimeType($this->relativePath);
+    }
+
+    /**
      * Get the name of the file/folder.
      *
      * @param bool $includeDirName
@@ -88,6 +108,16 @@ abstract class BaseFile implements \ArrayAccess
     public function relativePath(): string
     {
         return $this->relativePath;
+    }
+
+    /**
+     * Gives you the absolute path to this file (or folder).
+     *
+     * @return string
+     */
+    public function absolutePath(): string
+    {
+        return $this->filesystem->path($this->relativePath);
     }
 
     /**
@@ -125,16 +155,6 @@ abstract class BaseFile implements \ArrayAccess
         $this->relativePath = $newPath;
 
         return $this;
-    }
-
-    /**
-     * Gives you the absolute path to this file (or folder).
-     *
-     * @return string
-     */
-    public function absolutePath(): string
-    {
-        return $this->filesystem->path($this->relativePath);
     }
 
     public function offsetExists($offset)

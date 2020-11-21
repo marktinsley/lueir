@@ -1,18 +1,18 @@
 <div>
     @if(is_null($this->file()) || $this->file() instanceof \App\Lib\Files\Folder)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-files.folder-contents path="{{ $path }}"/>
+            <x-files.folder-contents :path="$path"/>
         </div>
-    @elseif ($this->file()->isMarkdown())
-        <livewire:files.markdown-editor path="{{ $path }}"/>
-    @elseif ($this->file()->isText())
+    @elseif ($this->file()->typeChecker()->isMarkdown())
+        <livewire:files.markdown-editor :path="$path"/>
+    @elseif ($this->file()->typeChecker()->isText())
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4">
                 <div class="py-5 flex justify-between">
                     <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
-                        <livewire:files.favorites-toggle path="{{ $path }}"/>
+                        <livewire:files.favorites-toggle :path="$path"/>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
-                        <livewire:files.favorites-toggle path="{{ $path }}"/>
+                        <livewire:files.favorites-toggle :path="$path"/>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                     <x-files.manipulation-buttons :path="$path"/>
 
                     <div class="py-3 px-3">
-                        <livewire:files.favorites-toggle path="{{ $path }}"/>
+                        <livewire:files.favorites-toggle :path="$path"/>
                     </div>
                 </div>
             </div>

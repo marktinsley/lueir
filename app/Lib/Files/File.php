@@ -8,39 +8,6 @@ use Illuminate\Support\Str;
 
 class File extends BaseFile
 {
-    /**
-     * Is this a text file?
-     *
-     * @return bool
-     */
-    public function isText(): bool
-    {
-        return Str::startsWith($this->filesystem->mimeType($this->relativePath), 'text/');
-    }
-
-    /**
-     * Is this a markdown file?
-     *
-     * @return bool
-     */
-    public function isMarkdown(): bool
-    {
-        return $this->isText() && (new \SplFileInfo($this->absolutePath()))->getExtension() === 'md';
-    }
-
-    /**
-     * Is this an image that can be rendered in an <img> tag?
-     *
-     * @return bool
-     */
-    public function isBrowserRenderableImage(): bool
-    {
-        return in_array($this->filesystem->mimeType($this->relativePath), [
-            'image/gif',
-            'image/jpeg',
-            'image/png',
-        ]);
-    }
 
     /**
      * Get the contents of this file.

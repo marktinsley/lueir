@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Files;
 
 use App\Lib\Files;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
 use Livewire\Component;
 
 /**
@@ -69,16 +68,6 @@ class MarkdownEditor extends Component
         return $this->file->folder()->relativePath();
     }
 
-    public function toHtml()
-    {
-        return (new GithubFlavoredMarkdownConverter())->convertToHtml($this->contents);
-    }
-
-    public function render()
-    {
-        return view('livewire.files.markdown-editor');
-    }
-
     /**
      * Set the contents property based on the file at the given path.
      *
@@ -86,14 +75,12 @@ class MarkdownEditor extends Component
      */
     private function setContentsFromFile()
     {
-        if ($this->file instanceof Files\Folder) {
-            throw new \InvalidArgumentException("Folder provided ({$this->path}). Must provide a markdown file.");
-        }
-
-        if (!$this->file->isMarkdown()) {
-            throw new \InvalidArgumentException("File is not markdown ({$this->path}).");
-        }
-
+        $this->file->typeChecker()->assertMarkdown();
         $this->contents = $this->file->contents();
+    }
+
+    public function render()
+    {
+        return view('livewire.files.markdown-editor');
     }
 }

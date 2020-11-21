@@ -12,7 +12,7 @@
             </x-files.manipulation-buttons>
             <div class="flex justify-end">
                 <div class="py-3 px-3 mr-4">
-                    <livewire:files.favorites-toggle path="{{ $path }}"/>
+                    <livewire:files.favorites-toggle :path="$path"/>
                 </div>
 
                 @if($edit)
@@ -57,9 +57,7 @@
         @endif
         <div
             class="mb-12 bg-white overflow-hidden shadow-xl sm:rounded-lg p-8 pb-24 @if ($edit) ml-10 max-w-prose @else mx-auto @if (!$fullWidth) @endif @endif w-full">
-            <article class="prose prose-lg" style="width: 100%">
-                {!! $this->toHtml() !!}
-            </article>
+            <x-files.markdown-view :markdown="$contents"/>
         </div>
     </div>
 </div>

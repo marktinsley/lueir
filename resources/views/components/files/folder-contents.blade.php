@@ -10,15 +10,15 @@
 
                 <div class="flex justify-end">
                     <div class="py-3 px-3 mr-4">
-                        <livewire:files.favorites-toggle path="{{ $path }}"/>
+                        <livewire:files.favorites-toggle :path="$path"/>
                     </div>
 
                     <div>
-                        <livewire:files.new-file-dialog folder-path="{{ $path }}"/>
+                        <livewire:files.new-file-dialog :folder-path="$path"/>
                     </div>
 
                     <div class="ml-2">
-                        <livewire:files.new-folder-dialog parent-path="{{ $path }}"/>
+                        <livewire:files.new-folder-dialog :parent-path="$path"/>
                     </div>
                 </div>
             @endif
