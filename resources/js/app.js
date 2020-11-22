@@ -13,3 +13,7 @@ Livewire.on('notify', (type, message) => {
 });
 
 Livewire.on('shortcutPressed', shortcut => shortcut === 's' && window.Lueir.MenuDrawer.toggle());
+
+Livewire.on('changePath', newPath => {
+    document.title = 'Lueir ' + (newPath ? `- ${newPath}` : '');
+});

@@ -23621,6 +23621,9 @@ Livewire.on('notify', function (type, message) {
 Livewire.on('shortcutPressed', function (shortcut) {
   return shortcut === 's' && window.Lueir.MenuDrawer.toggle();
 });
+Livewire.on('changePath', function (newPath) {
+  document.title = 'Lueir ' + (newPath ? "- ".concat(newPath) : '');
+});
 
 /***/ }),
 
@@ -23868,8 +23871,8 @@ var Shortcuts = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mark/Code/lueir/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mark/Code/lueir/resources/css/app.scss */"./resources/css/app.scss");
+__webpack_require__(/*! /app/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /app/resources/css/app.scss */"./resources/css/app.scss");
 
 
 /***/ })
