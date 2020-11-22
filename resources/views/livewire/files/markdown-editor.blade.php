@@ -1,6 +1,6 @@
 <div class="mx-auto sm:px-6 lg:px-8 @if ($fullWidth) w-full @else max-w-6xl @endif">
     <div class="mb-4">
-        <div class="py-5 sm:flex justify-between">
+        <div class="py-5 sm:flex justify-between px-1 sm:px-0">
             <x-files.manipulation-buttons :path="$path">
                 <x-jet-secondary-button wire:click="$toggle('fullWidth')" title="Toggle width" class="ml-2 hidden xl:block">
                     <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

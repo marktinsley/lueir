@@ -1,14 +1,14 @@
 <div>
     <div class="mb-4">
-        <div class="py-5 flex justify-between">
+        <div class="py-5 sm:flex justify-between px-1 sm:px-0">
             @if ($path)
-                <div class="flex">
+                <div>
                     @if (!$isBaseFolder)
                         <x-files.manipulation-buttons :path="$path"/>
                     @endif
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end mt-8 sm:mt-0">
                     <div class="py-3 px-3 mr-4">
                         <livewire:files.favorites-toggle :path="$path"/>
                     </div>
