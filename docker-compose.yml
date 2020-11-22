@@ -62,7 +62,7 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-    command: npm install
+    command: sh -c "npm install && npm run watch"
 
 networks:
   lueir:
