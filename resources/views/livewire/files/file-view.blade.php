@@ -1,5 +1,9 @@
 <div>
-    @if(is_null($this->file()) || $this->file() instanceof \App\Lib\Files\Folder)
+    @if (is_null($this->file()))
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-red-800">
+            File not found
+        </div>
+    @elseif($this->file() instanceof \App\Lib\Files\Folder)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-files.folder-contents :path="$path"/>
         </div>

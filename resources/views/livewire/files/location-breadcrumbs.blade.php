@@ -12,9 +12,13 @@
             >root</a>
             /
             @foreach($this->paths() as $file)
-                <a wire:click="$emit('changePath', '{{ $file->relativePath() }}')"
-                   class="@if (!$loop->last) cursor-pointer underline hover:text-blue-600 @else text-blue-800 @endif"
-                >{{ $file->name() }}</a> @if ($file instanceof \App\Lib\Files\Folder) / @endif
+                @if ($file)
+                    <a wire:click="$emit('changePath', '{{ $file->relativePath() }}')"
+                       class="@if (!$loop->last) cursor-pointer underline hover:text-blue-600 @else text-blue-800 @endif"
+                    >{{ $file->name() }}</a> @if ($file instanceof \App\Lib\Files\Folder) / @endif
+                @else
+                    <em>file not found</em>
+                @endif
             @endforeach
         </div>
     </div>

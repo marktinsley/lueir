@@ -1,8 +1,8 @@
 <div class="mx-auto sm:px-6 lg:px-8 @if ($fullWidth) w-full @else max-w-6xl @endif">
     <div class="mb-4">
-        <div class="py-5 flex justify-between">
+        <div class="py-5 sm:flex justify-between">
             <x-files.manipulation-buttons :path="$path">
-                <x-jet-secondary-button wire:click="$toggle('fullWidth')" title="Toggle width" class="ml-2">
+                <x-jet-secondary-button wire:click="$toggle('fullWidth')" title="Toggle width" class="ml-2 hidden xl:block">
                     <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -10,7 +10,7 @@
                     </svg>
                 </x-jet-secondary-button>
             </x-files.manipulation-buttons>
-            <div class="flex justify-end">
+            <div class="flex justify-end mt-8 sm:mt-0">
                 <div class="py-3 px-3 mr-4">
                     <livewire:files.favorites-toggle :path="$path"/>
                 </div>
