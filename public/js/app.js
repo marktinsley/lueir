@@ -23618,6 +23618,9 @@ window.Lueir.Shortcuts.setupBindings();
 Livewire.on('notify', function (type, message) {
   window.Lueir.Notification.showMessage(message, type);
 });
+Livewire.on('shortcutPressed', function (shortcut) {
+  return shortcut === 's' && window.Lueir.MenuDrawer.toggle();
+});
 
 /***/ }),
 
@@ -23720,12 +23723,28 @@ var MenuDrawer = /*#__PURE__*/function () {
   _createClass(MenuDrawer, null, [{
     key: "show",
     value: function show() {
-      document.getElementById('menu-drawer').show();
+      MenuDrawer.getElement().show();
     }
   }, {
     key: "hide",
     value: function hide() {
-      document.getElementById('menu-drawer').hide();
+      MenuDrawer.getElement().hide();
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      var element = MenuDrawer.getElement();
+
+      if (element.open) {
+        element.hide();
+      } else {
+        element.show();
+      }
+    }
+  }, {
+    key: "getElement",
+    value: function getElement() {
+      return document.getElementById('menu-drawer');
     }
   }]);
 
@@ -23819,6 +23838,7 @@ var Shortcuts = /*#__PURE__*/function () {
       'm', // Move a file or folder.
       'n', // Create a new folder in the current directory.
       'r', // Rename the current file or folder.
+      's', // Open the side menu.
       'q', // Exit from edit mode.
       'x', // Exit from edit mode and save changes to the file.
       'w', // Save the file we're currently editing.

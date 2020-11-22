@@ -6,6 +6,7 @@ export class Shortcuts {
             'm', // Move a file or folder.
             'n', // Create a new folder in the current directory.
             'r', // Rename the current file or folder.
+            's', // Open the side menu.
             'q', // Exit from edit mode.
             'x', // Exit from edit mode and save changes to the file.
             'w', // Save the file we're currently editing.

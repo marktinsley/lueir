@@ -11,3 +11,5 @@ window.Lueir.Shortcuts.setupBindings();
 Livewire.on('notify', (type, message) => {
     window.Lueir.Notification.showMessage(message, type)
 });
+
+Livewire.on('shortcutPressed', shortcut => shortcut === 's' && window.Lueir.MenuDrawer.toggle());
